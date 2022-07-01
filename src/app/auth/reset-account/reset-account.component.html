@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <b>Recupera tu cuenta</b>
+    </div>
+
+    <div class="card-body p-4">
+      <p>Ingresa tu correo electrónico para buscar tu cuenta.</p>
+      <label for="email"> Email</label>
+      <input id="userName" class="form-control m-2" type="email" placeholder="ingrese su e-mail" name="email" #userName
+        required />
+        <button  class="btn btn-secondary btn-lg btn-block m-2"
+        (click)="login()">cancelar</button>
+      <button  class="btn btn-primary btn-lg btn-block m-2"
+        (click)="authService.ForgotPassword(userName.value)">Recuperar contraseña</button>
+      <hr>
+
+      <label>Aun no tienes cuenta? <a routerLink="../register">Resgistrarse</a> </label>
+
+    </div>
+
+  </div>
+</div>

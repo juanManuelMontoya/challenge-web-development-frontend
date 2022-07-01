@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <b>LOGIN</b>
+    </div>
+    <div class="card-body p-4">
+      <label for="email"> Email</label>
+      <input id="userName" class="form-control m-2" type="email" placeholder="ingrese su e-mail" name="email" #userName required />
+      <label for="email"> Password</label>
+      <input id="userPassword" class="form-control m-2" type="password" placeholder="ingrese su contraseña"
+        name="password" #userPassword required>
+      <button style="width: 100%;" class="btn btn-primary btn-lg btn-block m-2"
+        (click)="authService.SignIn(userName.value, userPassword.value)">Login</button>
+      <a routerLink="../restAccount">¿Olvidaste tu contraseña?</a>
+      <hr>
+      <button style="width: 100%;" class="btn btn-danger btn-lg btn-block m-2"
+        (click)="authService.GoogleAuth()"><i class="fa-brands fa-google"></i> Inicia Sesion con Google</button>
+      <br>
+      <label>Aun no tienes cuenta? <a routerLink="../register">Resgistrarse</a> </label>
+
+    </div>
+
+  </div>
+</div>

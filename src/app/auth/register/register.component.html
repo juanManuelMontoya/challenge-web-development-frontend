@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <b>REGISTER</b>
+    </div>
+    <div class="card-body p-4">
+
+      <label for="email"> Email</label>
+      <input id="userMail" class="form-control m-2" type="text" placeholder="ingrese su e-mail" name="email" #userMail required />
+
+      <label for="email"> Password</label>
+      <input id="userPassword" class="form-control m-2" type="password" placeholder="ingrese su password" name="password" #userPassword required>
+
+
+      <button style="width: 100%;" class="btn btn-primary btn-lg btn-block m-2" (click)="authService.SignUp(userMail.value, userPassword.value)" >Crear cuenta</button>
+      <hr>
+
+      <br>
+      <label>Ya tienes cuenta? <a routerLink="../login" >Inicia sesion</a> </label>
+
+    </div>
+
+  </div>
+</div>

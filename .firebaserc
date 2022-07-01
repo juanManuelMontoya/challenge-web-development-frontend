@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "challenge-desarrollo-web": {
+      "hosting": {
+        "challenge-desarrollo-web": [
+          "challenge-desarrollo-web"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "challenge-desarrollo-web"
+  }
+}

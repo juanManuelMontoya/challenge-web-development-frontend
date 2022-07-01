@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark mb-3" style="background-color: #ec752d;">
+  <div class="container-fluid">
+    <h4>GameSofka</h4>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+           <a class="nav-link active" aria-current="page" href="../../pages/home">
+            <i class="fas fa-home"></i> Home</a>
+        </li>
+      </ul>
+        <button *ngIf="!authService.isLoggedIn" type="button" class="btn btn-outline-success" (click)="login()" > <i class="fa-solid fa-right-to-bracket fa-lg"></i> Iniciar Sesion</button>
+        <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-outline-danger" (click)="authService.SignOut()" > <i class="fa-solid fa-arrow-right-to-bracket"></i> Cerrar Sesion</button>
+    </div>
+  </div>
+</nav>
