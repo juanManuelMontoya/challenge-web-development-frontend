@@ -44,6 +44,7 @@ export class AuthenticationService {
         window.alert(error.message);
       });
   }
+
   // Regístrese
   SignUp(email: string, password: string) {
     return this.authentication
@@ -56,6 +57,7 @@ export class AuthenticationService {
         window.alert(error.message);
       });
   }
+
   // Enviar verificación de correo electrónico cuando se registre un nuevo usuario
   SendVerificationMail() {
     return this.authentication.currentUser
@@ -64,6 +66,7 @@ export class AuthenticationService {
         this.router.navigate(['verificar el correo']);
       });
   }
+
   // Restablecer mi contraseña
   ForgotPassword(passwordResetEmail: string) {
     return this.authentication
@@ -80,9 +83,10 @@ export class AuthenticationService {
   // Devuelve verdadero cuando el usuario inicia sesión y se verifica el correo electrónico
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    //return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null ? true : false;
   }
-  
+
   // Iniciar sesion con Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((result: any) => {

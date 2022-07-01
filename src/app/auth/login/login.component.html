@@ -1,24 +1,44 @@
-<div class="container">
-  <div class="card text-center">
-    <div class="card-header">
-      <b>LOGIN</b>
+<div class="card bg-news">
+  <!--<img class="wave" src="../../../assets/wave.png">-->
+  
+	<div style="margin-left: 100px;" class="container">
+		<div class="img">
+	  <img src="../../../assets/F1-background.png">
+		</div>
+		<div class="login-content">
+			<form action="index.html">
+				<img class="avatar_image" src="../../../assets/avatar_car.jpg">
+				<!--<h2 class="title">Bienvenido</h2>-->
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Usuario</h5>
+           		   		<input type="text" class="input" name="email" #userName required id="userName">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Contraseña</h5>
+           		    	<input type="password" class="input" id="userPassword" name="password" #userPassword required>
+            	   </div>
+            	</div>
+              <div>
+                <a routerLink="../restAccount">¿Olvidaste la contraseña?</a>
+                <a class="register" routerLink="../register">Resgistrarse</a>
+              </div>
+            	<input class="btn" value="Iniciar Sesion" (click)="authService.SignIn(userName.value, userPassword.value)">
+              <div class="google-btn" (click)="authService.GoogleAuth()">
+                <div class="google-icon-wrapper">
+                  <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                </div>
+                <p class="btn-text"><b>Iniciar con google</b></p>
+              </div>
+            </form>
+        </div>
     </div>
-    <div class="card-body p-4">
-      <label for="email"> Email</label>
-      <input id="userName" class="form-control m-2" type="email" placeholder="ingrese su e-mail" name="email" #userName required />
-      <label for="email"> Password</label>
-      <input id="userPassword" class="form-control m-2" type="password" placeholder="ingrese su contraseña"
-        name="password" #userPassword required>
-      <button style="width: 100%;" class="btn btn-primary btn-lg btn-block m-2"
-        (click)="authService.SignIn(userName.value, userPassword.value)">Login</button>
-      <a routerLink="../restAccount">¿Olvidaste tu contraseña?</a>
-      <hr>
-      <button style="width: 100%;" class="btn btn-danger btn-lg btn-block m-2"
-        (click)="authService.GoogleAuth()"><i class="fa-brands fa-google"></i> Inicia Sesion con Google</button>
-      <br>
-      <label>Aun no tienes cuenta? <a routerLink="../register">Resgistrarse</a> </label>
-
-    </div>
-
-  </div>
 </div>
