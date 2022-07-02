@@ -11,9 +11,12 @@
            <a class="nav-link active" aria-current="page" href="../../pages/home">
             <i class="fas fa-home"></i> Home</a>
         </li>
+
       </ul>
-        <button *ngIf="!authService.isLoggedIn" type="button" class="btn btn-outline-success" (click)="login()" > <i class="fa-solid fa-right-to-bracket fa-lg"></i> Iniciar Sesion</button>
-        <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-outline-danger" (click)="authService.SignOut()" > <i class="fa-solid fa-arrow-right-to-bracket"></i> Cerrar Sesion</button>
+      <label style="padding-right: 10px;"><img src="../../../assets/img/user-solid.svg" class="icon"> {{ loggedUser }}</label>
+              
+      <button *ngIf="!authService.isLoggedIn" type="button" class="btn btn-outline-success" (click)="login()" > <i class="fa-solid fa-right-to-bracket fa-lg"></i> Iniciar Sesion</button>
+      <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-outline-danger" (click)="authService.SignOut()" > <i class="fa-solid fa-arrow-right-to-bracket"></i> Cerrar Sesion</button>
     </div>
   </div>
 </nav>

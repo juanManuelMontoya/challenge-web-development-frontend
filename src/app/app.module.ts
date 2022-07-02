@@ -16,6 +16,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './shared/pages/home/home.component';
 import { HeaderComponent } from './shared/pages/header/header.component';
+import { UsersFormComponent } from './shared/pages/users-form/users-form.component';
 
 
 
@@ -27,6 +28,7 @@ import { HeaderComponent } from './shared/pages/header/header.component';
     ResetAccountComponent,
     HomeComponent,
     HeaderComponent,
+    UsersFormComponent
 
   ],
   imports: [
