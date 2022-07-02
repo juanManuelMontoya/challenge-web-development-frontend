@@ -12,6 +12,6 @@
     <label for="exampleInputEmail1" class="form-label">Jugador 3</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
-  <button *ngIf="!raceCreated" type="submit" class="btn btn-primary">Crear Carrera</button>
-  <button *ngIf="raceCreated" type="submit" class="btn btn-primary">Iniciar carrera</button>
+  <button *ngIf="!raceCreated" class="btn btn-primary" (click)="create()">Crear Carrera</button>
+  <button *ngIf="raceCreated" class="btn btn-primary">Iniciar carrera</button>
 </form>

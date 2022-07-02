@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
 import { HomeComponent } from './shared/pages/home/home.component';
 import { HeaderComponent } from './shared/pages/header/header.component';
 import { UsersFormComponent } from './shared/pages/users-form/users-form.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { UsersFormComponent } from './shared/pages/users-form/users-form.compone
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
