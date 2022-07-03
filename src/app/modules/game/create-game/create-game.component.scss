@@ -6,7 +6,7 @@
 form {
     width: 480px;
     padding: 65px;
-    box-shadow: 5px 10px 18px #888888;
+    box-shadow: 5px 10px 18px #f5f4f4;
 }
 
 
@@ -36,37 +36,9 @@ form {
     transition: .3s;
 }
 
-.input-div:before,
-.input-div:after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    width: 0%;
-    height: 2px;
-    background-color: #5e970c;
-    transition: .4s;
-}
-
-.input-div:before {
-    right: 50%;
-}
-
-.input-div:after {
-    left: 50%;
-}
-
-.input-div.focus:before,
-.input-div.focus:after {
-    width: 50%;
-}
 
 .input-div>input {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
+    border: 1px solid #FFFFFF;
     outline: none;
     background: none;
     padding: 0.5rem 0.7rem;

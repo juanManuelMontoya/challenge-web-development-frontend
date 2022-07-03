@@ -83,7 +83,7 @@ export class CreateGameComponent implements OnInit {
     let id = "yyy" ;
     //this.router.navigate(['race'], { state: { id: this.gameForm.get("gameId")?.value }});
     //this.router.navigate(['/game/race' + id]);
-    this.router.navigate(['game/race'+ id]);
+    this.router.navigate(['game/race/'+ id]);
   }
   
 
