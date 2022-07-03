@@ -1,7 +1,7 @@
 .speedway{
     background: url("../../../../assets/img/pista-carrera.png") no-repeat 0 0;
     background-repeat: no-repeat;
-    background-size: 100% 95%;
+    background-size: 100% 100%;
     height:100%;
     width:100%;
     position:fixed;
@@ -18,32 +18,206 @@
 
 .car1{
     background: url("../../../../assets/img/buggati.png") no-repeat 0 0;
-    top: 796px;
-    left: 600px;
+    top: 82vh;
+    left: 32vw;
     position:fixed;
     overflow:hidden;
     background-size: 100% 100%;
+    animation: car1-run 20s infinite;
 }
 
 .car2{
     background: url("../../../../assets/img/F1.png") no-repeat 0 0;
-    top: 847px;
-    left: 600px;
+    top: 88vh;
+    left: 32vw;
     position:fixed;
     overflow:hidden;
     background-size: 100% 100%;
+    animation: car2-run 20s infinite;
 }
 
 .car3{
     background: url("../../../../assets/img/porsche.png") no-repeat 0 0;
-    top: 740px;
-    left: 600px;
+    top: 76vh;
+    left: 32vw;
     position:fixed;
     overflow:hidden;
     background-size: 100% 100%;
+    animation: car3-run 20s infinite;
 }
 
 .podio {
     width: 40%;
     height: 70%;
+}
+
+@keyframes car1-run {
+    0% {
+        transform: translateX(0px);
+    }
+    12% {
+        transform: translateX(32vw);
+    }
+    13% {
+        transform: translateX(32vw) rotate(-90deg);
+    }
+    25% {
+        transform: translateX(32vw) translateY(-30vh) rotate(-90deg);
+    }
+    26% {
+        transform: translateX(32vw) translateY(-30vh);
+    }
+    38% {
+        transform: translateX(52vw) translateY(-30vh);
+    }
+    39% {
+        transform: translateX(52vw) translateY(-30vh) rotate(-90deg);
+    }
+    41% {
+        transform: translateX(52vw) translateY(-68vh) rotate(-90deg);
+    }
+    42% {
+        transform: translateX(52vw) translateY(-68vh) rotate(-180deg);
+    }
+    54% {
+        transform: translateX(13vw) translateY(-68vh) rotate(-180deg);
+    }
+    55% {
+        transform: translateX(13vw) translateY(-68vh) rotate(-270deg);
+    }
+    67% {
+        transform: translateX(13vw) translateY(-40vh) rotate(-270deg);
+    }
+    69% {
+        transform: translateX(13vw) translateY(-40vh) rotate(-180deg);
+    }
+    81% {
+        transform: translateX(-22vw) translateY(-40vh) rotate(-180deg);
+    }
+    82% {
+        transform: translateX(-22vw) translateY(-40vh) rotate(-270deg);
+    }
+    94% {
+        transform: translateX(-22vw) translateY(0vh) rotate(-270deg);
+    }
+    95% {
+        transform: translateX(-22vw) translateY(0vh) rotate(-360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes car2-run {
+    0% {
+        transform: translateX(0px);
+    }
+    12% {
+        transform: translateX(35vw);
+    }
+    13% {
+        transform: translateX(35vw) rotate(-90deg);
+    }
+    25% {
+        transform: translateX(35vw) translateY(-30vh) rotate(-90deg);
+    }
+    26% {
+        transform: translateX(35vw) translateY(-30vh);
+    }
+    38% {
+        transform: translateX(56vw) translateY(-30vh);
+    }
+    39% {
+        transform: translateX(56vw) translateY(-30vh) rotate(-90deg);
+    }
+    41% {
+        transform: translateX(56vw) translateY(-82vh) rotate(-90deg);
+    }
+    42% {
+        transform: translateX(56vw) translateY(-82vh) rotate(-180deg);
+    }
+    54% {
+        transform: translateX(10vw) translateY(-82vh) rotate(-180deg);
+    }
+    55% {
+        transform: translateX(10vw) translateY(-82vh) rotate(-270deg);
+    }
+    67% {
+        transform: translateX(10vw) translateY(-53vh) rotate(-270deg);
+    }
+    69% {
+        transform: translateX(10vw) translateY(-53vh) rotate(-180deg);
+    }
+    81% {
+        transform: translateX(-25vw) translateY(-53vh) rotate(-180deg);
+    }
+    82% {
+        transform: translateX(-25vw) translateY(-53vh) rotate(-270deg);
+    }
+    94% {
+        transform: translateX(-25vw) translateY(0vh) rotate(-270deg);
+    }
+    95% {
+        transform: translateX(-25vw) translateY(0vh) rotate(-360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes car3-run {
+    0% {
+        transform: translateX(0px);
+    }
+    12% {
+        transform: translateX(29vw);
+    }
+    13% {
+        transform: translateX(29vw) rotate(-90deg);
+    }
+    25% {
+        transform: translateX(29vw) translateY(-30vh) rotate(-90deg);
+    }
+    26% {
+        transform: translateX(29vw) translateY(-30vh);
+    }
+    38% {
+        transform: translateX(50vw) translateY(-30vh);
+    }
+    39% {
+        transform: translateX(50vw) translateY(-30vh) rotate(-90deg);
+    }
+    41% {
+        transform: translateX(50vw) translateY(-57vh) rotate(-90deg);
+    }
+    42% {
+        transform: translateX(50vw) translateY(-57vh) rotate(-180deg);
+    }
+    54% {
+        transform: translateX(17vw) translateY(-57vh) rotate(-180deg);
+    }
+    55% {
+        transform: translateX(17vw) translateY(-57vh) rotate(-270deg);
+    }
+    67% {
+        transform: translateX(17vw) translateY(-30vh) rotate(-270deg);
+    }
+    69% {
+        transform: translateX(17vw) translateY(-30vh) rotate(-180deg);
+    }
+    81% {
+        transform: translateX(-18vw) translateY(-30vh) rotate(-180deg);
+    }
+    82% {
+        transform: translateX(-18vw) translateY(-30vh) rotate(-270deg);
+    }
+    94% {
+        transform: translateX(-18vw) translateY(0vh) rotate(-270deg);
+    }
+    95% {
+        transform: translateX(-18vw) translateY(0vh) rotate(-360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
