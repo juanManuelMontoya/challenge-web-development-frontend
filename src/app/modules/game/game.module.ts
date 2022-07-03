@@ -5,6 +5,7 @@ import { GameRoutingModule } from './game-routing.module';
 import { HomeComponent } from './home/home.component';
 import { CoreModule } from '../core/core.module';
 import { CreateGameComponent } from './create-game/create-game.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,8 @@ import { CreateGameComponent } from './create-game/create-game.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     GameRoutingModule,
     CoreModule
   ]

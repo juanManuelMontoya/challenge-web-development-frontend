@@ -16,6 +16,7 @@ import { RaceComponent } from './shared/pages/race/race.component';
 import { CoreModule } from './modules/core/core.module';
 import { UsersModule } from './modules/users/users.module';
 import { DisplayService } from './modules/shared/services/display.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,12 +32,18 @@ import { DisplayService } from './modules/shared/services/display.service';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
     UsersModule
   ],
+  exports: [
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [
-    DisplayService
+    DisplayService,
   ],
   bootstrap: [AppComponent]
 })

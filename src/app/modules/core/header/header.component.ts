@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router:Router,
-    public authService: AuthenticationService
+    private authService: AuthenticationService
   ) {
 
     if ( JSON.parse(localStorage.getItem('user')!) != null) {
@@ -24,12 +24,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.loggedUser === "") {
-      this.login();
+      this.router.navigate(['login']);
     }
   }
 
-  login(){
-    this.router.navigate(['login'])
+  signOut() {
+    this.authService.SignOut();
+  }
+
+  isLogged() {
+    return this.authService.isLoggedIn;
   }
 
 }

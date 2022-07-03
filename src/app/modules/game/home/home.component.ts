@@ -9,7 +9,9 @@ import { DisplayService } from '../../shared/services/display.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private displayService: DisplayService, private router: Router) { }
+  constructor(private displayService: DisplayService, private router: Router) { 
+    
+  }
 
   ngOnInit(): void {
     localStorage.getItem("user") !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
