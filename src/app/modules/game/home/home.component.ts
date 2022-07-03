@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameAutenticationService } from 'src/app/shared/services/game.service';
 import { DisplayService } from '../../shared/services/display.service';
+import { GameAutenticationService } from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-home',

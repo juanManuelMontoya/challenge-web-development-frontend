@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { GameAutenticationService } from 'src/app/shared/services/game.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../shared/services/authentication.service';
+import { GameAutenticationService } from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-create-game',
