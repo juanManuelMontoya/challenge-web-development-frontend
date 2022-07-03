@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetAccountComponent } from './auth/reset-account/reset-account.component';
 import { HomeComponent } from './shared/pages/home/home.component';
+import { RaceComponent } from './shared/pages/race/race.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'restAccount', component: ResetAccountComponent},
   {path: 'restAccount', component: ResetAccountComponent},
   {path: 'home', component: HomeComponent, data:{requiresLogin: true}},
+  {path: 'race', component: RaceComponent, data:{requiresLogin: true}},
   {path: '**', pathMatch: 'full', redirectTo:'login'}
 ];
 

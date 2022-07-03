@@ -18,6 +18,7 @@ import { HomeComponent } from './shared/pages/home/home.component';
 import { HeaderComponent } from './shared/pages/header/header.component';
 import { UsersFormComponent } from './shared/pages/users-form/users-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RaceComponent } from './shared/pages/race/race.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     ResetAccountComponent,
     HomeComponent,
     HeaderComponent,
-    UsersFormComponent
+    UsersFormComponent,
+    RaceComponent,
 
   ],
   imports: [

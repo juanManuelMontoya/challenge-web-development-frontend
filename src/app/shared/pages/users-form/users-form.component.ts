@@ -10,37 +10,36 @@ import { GameAutenticationService } from '../../services/game.service';
 })
 export class UsersFormComponent implements OnInit {
 
-  raceCreated : boolean = false;
+  raceCreated: boolean = false;
 
   constructor(
-    private router:Router,
+    private router: Router,
     public authService: AuthenticationService,
-    private service : GameAutenticationService
+    private service: GameAutenticationService
   ) {
-   }
-
-  ngOnInit(): void {
   }
 
-  create(){
+  ngOnInit(): void {}
 
-    let data = { 
+  create() {
+
+    let data = {
       "kilometros": 2,
-      "juegoId":"yyy",
-      "jugadores": { 
-          "112233": "Juan",
-          "4455443": "Pedro", 
-          "fffff": "Santiago" 
-      } 
-  }  
+      "juegoId": "yyy",
+      "jugadores": {
+        "112233": "Juan",
+        "4455443": "Pedro",
+        "fffff": "Santiago"
+      }
+    }
 
-    this.service.createGame(data).subscribe(res => {
-      console.log(res);     
-      console.log("entro");
-       
-    }, error => {
-      console.log(data);
-      console.log(error)
+    this.service.createGame(data).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      }
     });
   }
 

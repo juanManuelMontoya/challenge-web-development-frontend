@@ -8,5 +8,8 @@ export const environment = {
     messagingSenderId: '630559817688',
     measurementId: 'G-ZSHQ2V0621',
   },
+  game: {
+    url: "https://challenge-web-development.herokuapp.com/"
+  },
   production: true
 };
