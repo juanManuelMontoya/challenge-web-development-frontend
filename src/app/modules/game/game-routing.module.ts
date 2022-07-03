@@ -14,9 +14,7 @@ const routes: Routes = [
   {
     path: 'race', 
     component: RaceComponent, 
-    data :{
-      requiresLogin: true
-    }
+    data : {}
   }
 ];
 
