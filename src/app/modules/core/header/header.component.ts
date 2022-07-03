@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service'
+import { AuthenticationService } from '../../../shared/services/authentication.service'
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service'
 })
 export class HeaderComponent implements OnInit {
 
-  loggedUser : String = "";
+  loggedUser : string = "";
 
   constructor(
     private router:Router,
@@ -23,6 +23,9 @@ export class HeaderComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if (this.loggedUser === "") {
+      this.login();
+    }
   }
 
   login(){

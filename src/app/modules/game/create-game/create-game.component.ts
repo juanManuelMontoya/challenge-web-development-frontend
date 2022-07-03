@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service'
-import { GameAutenticationService } from '../../services/game.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { GameAutenticationService } from 'src/app/shared/services/game.service';
 
 @Component({
-  selector: 'app-users-form',
-  templateUrl: './users-form.component.html',
-  styleUrls: ['./users-form.component.scss']
+  selector: 'app-create-game',
+  templateUrl: './create-game.component.html',
+  styleUrls: ['./create-game.component.scss']
 })
-export class UsersFormComponent implements OnInit {
+export class CreateGameComponent implements OnInit {
 
   raceCreated: boolean = false;
 

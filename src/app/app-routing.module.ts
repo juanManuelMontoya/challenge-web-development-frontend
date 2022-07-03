@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './shared/pages/home/home.component';
 import { RaceComponent } from './shared/pages/race/race.component';
 
 const routes: Routes = [
@@ -9,11 +8,8 @@ const routes: Routes = [
     loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
   },
   {
-    path: 'home', 
-    component: HomeComponent, 
-    data:{
-      requiresLogin: true
-    }
+    path: 'game', 
+    loadChildren: () => import('./modules/game/game.module').then(m => m.GameModule)
   },
   {
     path: 'race', 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { User } from 'src/app/modules/shared/models/user';
 
 
 @Injectable({
@@ -37,7 +37,7 @@ export class AuthenticationService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         console.log("ingresó")
-        this.router.navigate(['home']);
+        this.router.navigate(['game/home']);
         this.SetUserData(result.user);
       })
       .catch((error) => {
@@ -92,7 +92,7 @@ export class AuthenticationService {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((result: any) => {
       if (result) {
         this.SetUserData(result.user);
-        this.router.navigate(['home']);
+        this.router.navigate(['game/home']);
       }
     });
   }
@@ -101,7 +101,7 @@ export class AuthenticationService {
     return this.authentication
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['home']);
+        this.router.navigate(['game/home']);
         this.SetUserData(result.user);
       })
       .catch((error) => {
