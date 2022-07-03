@@ -6,12 +6,13 @@ import { HomeComponent } from './home/home.component';
 import { CoreModule } from '../core/core.module';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { RaceComponent } from './race/race.component'
 
 @NgModule({
   declarations: [
     HomeComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    RaceComponent
   ],
   imports: [
     CommonModule,

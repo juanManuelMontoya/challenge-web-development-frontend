@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RaceComponent } from './shared/pages/race/race.component';
+import { RaceComponent } from './modules/game/race/race.component';
 
 const routes: Routes = [
   {
@@ -10,13 +10,6 @@ const routes: Routes = [
   {
     path: 'game', 
     loadChildren: () => import('./modules/game/game.module').then(m => m.GameModule)
-  },
-  {
-    path: 'race', 
-    component: RaceComponent, 
-    data: {
-      requiresLogin: true
-    }
   },
   {
     path: '**', 

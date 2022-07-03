@@ -79,6 +79,14 @@ export class CreateGameComponent implements OnInit {
     });
   }
 
+  carrera():void{
+    let id = "yyy" ;
+    //this.router.navigate(['race'], { state: { id: this.gameForm.get("gameId")?.value }});
+    //this.router.navigate(['/game/race' + id]);
+    this.router.navigate(['game/race'+ id]);
+  }
+  
+
 }
 
 interface Game {
