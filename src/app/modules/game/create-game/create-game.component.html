@@ -61,5 +61,6 @@
         </div>
     </div>
     <button *ngIf="raceCreated" class="btn btn-primary" (click)="start()">Iniciar carrera</button>
-    <button type="submit" *ngIf="!raceCreated" class="btn btn-primary">Crear Carrera</button>
+    <button type="submit" *ngIf="!raceCreated" class="btn btn-primary">Crear Carrera</button><br>
+    <button style="margin-top: 10px;" *ngIf="!raceCreated" class="btn btn-primary" (click)="carrera()">race</button>
 </form>

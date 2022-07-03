@@ -12,7 +12,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
-import { RaceComponent } from './shared/pages/race/race.component';
+import { RaceComponent } from './modules/game/race/race.component';
 import { CoreModule } from './modules/core/core.module';
 import { UsersModule } from './modules/users/users.module';
 import { DisplayService } from './modules/shared/services/display.service';
@@ -22,7 +22,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    RaceComponent,
   ],
   imports: [
     BrowserModule,
