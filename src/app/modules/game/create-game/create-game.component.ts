@@ -15,7 +15,6 @@ export class CreateGameComponent implements OnInit {
   readyToRace: boolean = false;
   @Output() raceCreated = new EventEmitter<any>();
   gameForm!: FormGroup;
-  gameId!: string;
 
   constructor(
     private router: Router,
@@ -55,8 +54,7 @@ export class CreateGameComponent implements OnInit {
 
     this.service.createGame(game).subscribe({
       next: (res) => {
-        this.raceCreated.emit({isCreated: true, gameId: this.gameId});
-        this.gameId = res;
+        this.raceCreated.emit({isCreated: true, gameId: res});
       },
       error: (error) => {
         console.error(error);

@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   setRace(event: any) {
+    console.log(event);
     this.raceCreated = event.isCreated;
     this.gameId = event.gameId;
   }
