@@ -6,3 +6,32 @@
     width: max-content;
     margin: auto;
 }
+
+#slide-1 {
+    background-image: url('../../../../assets/img/slide-1.jpg');
+    background-size: cover;
+}
+
+#slide-2 {
+    background-image: url('../../../../assets/img/slide-2.jpg');
+    background-size: cover;
+}
+
+#slide-3 {
+    background-image: url('../../../../assets/img/slide-3.jpg');
+    background-size: cover;
+}
+
+.il-1 {
+    z-index: -1;
+}
+
+#game-form {
+    background-image: linear-gradient(to right, #5e970c, #8eb928, #c2df47);
+}
+
+#game-form-card {
+	width: fit-content;
+	background-color: rgba(0, 0, 0, .6);
+	margin: auto;
+}
