@@ -1,10 +1,10 @@
-<form [formGroup]="gameForm" (ngSubmit)="create()">
-    <div class="mb-3">
+<form id="create-game-card" [formGroup]="gameForm" (ngSubmit)="create()">
+    <div class="mb-3 input-div">
         <label for="game-id" class="form-label">Ingrese ID de juego:</label>
         <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="game-id" aria-describedby="gameId"
             name="gameId" formControlName="gameId" required>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 input-div">
         <label for="game-id" class="form-label">Kilometros a recorrer:</label>
         <input [attr.readonly]="raceCreated ? true : null" type="number" class="form-control" id="game-id" aria-describedby="kilometers"
             name="kilometers" formControlName="kilometers" required>
@@ -12,14 +12,14 @@
     <label class="form-label">Jugador 1</label>
     <div class="row mb-3 g-2">
         <div class="col">
-            <div class="form-floating">
+            <div class="form-floating input-div">
                 <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="player1-name" aria-describedby="player1 name"
                     name="playerOneName" formControlName="playerOneName" required>
                 <label for="player1-name">Nombre</label>
             </div>
         </div>
         <div class="col">
-            <div class="form-floating">
+            <div class="form-floating input-div">
                 <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="player1-identity" aria-describedby="player1 identification"
                     name="playerOneIdentity" formControlName="playerOneIdentity" required>
                 <label for="player1-identity">Identificación</label>
@@ -29,14 +29,14 @@
     <label class="form-label">Jugador 2</label>
     <div class="row mb-3 g-2">
         <div class="col">
-            <div class="form-floating">
+            <div class="form-floating input-div">
                 <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="player2-name" aria-describedby="player2 name"
                     name="playerTwoName" formControlName="playerTwoName" required>
                 <label for="player1-name">Nombre</label>
             </div>
         </div>
         <div class="col">
-            <div class="form-floating">
+            <div class="form-floating input-div">
                 <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="player2-identity" aria-describedby="player2 identification"
                     name="playerTwoIdentity" formControlName="playerTwoIdentity" required>
                 <label for="player1-identity">Identificación</label>
@@ -46,14 +46,14 @@
     <label class="form-label">Jugador 3</label>
     <div class="row mb-3 g-2">
         <div class="col">
-            <div class="form-floating">
+            <div class="form-floating input-div">
                 <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="player3-name" aria-describedby="player3 name"
                     name="playerThreeName" formControlName="playerThreeName" required>
                 <label for="player1-name">Nombre</label>
             </div>
         </div>
         <div class="col">
-            <div class="form-floating">
+            <div class="form-floating input-div">
                 <input [attr.readonly]="raceCreated ? true : null" type="text" class="form-control" id="player3-identity" aria-describedby="player3 identification"
                     name="playerThreeIdentity" formControlName="playerThreeIdentity" required>
                 <label for="player1-identity">Identificación</label>
