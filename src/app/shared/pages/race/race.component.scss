@@ -1,6 +1,6 @@
 .speedway{
     margin-top: -1%;
-    background-image: url("../../../../assets/img/pista-carrera.png");
+    background: url("../../../../assets/img/pista-carrera.png") no-repeat 0 0;
     background-repeat: no-repeat;
     background-size: 100% 95%;
     height:100%;
@@ -18,28 +18,33 @@
 }
 
 .car1{
-    background: url("../../../../assets/img/avatar_car.jpg") no-repeat 0 0;
-    background-size: 100% 100%;
-    position:fixed;
-    overflow:hidden;
+    background: url("../../../../assets/img/buggati.png") no-repeat 0 0;
     top: 796px;
     left: 600px;
+    position:fixed;
+    overflow:hidden;
+    background-size: 100% 100%;
 }
 
 .car2{
-    background: url("../../../../assets/img/gokart-1.png") no-repeat 0 0;
-    background-size: 100% 100%;
-    position:fixed;
-    overflow:hidden;
+    background: url("../../../../assets/img/F1.png") no-repeat 0 0;
     top: 847px;
     left: 600px;
+    position:fixed;
+    overflow:hidden;
+    background-size: 100% 100%;
 }
 
 .car3{
+    background: url("../../../../assets/img/porsche.png") no-repeat 0 0;
     top: 740px;
     left: 600px;
-    background: url("../../../../assets/img/avatar_car.jpg") no-repeat 0 0;
-    background-size: 100% 100%;
     position:fixed;
     overflow:hidden;
+    background-size: 100% 100%;
+}
+
+.podio {
+    width: 40%;
+    height: 70%;
 }

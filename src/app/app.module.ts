@@ -19,7 +19,7 @@ import { HeaderComponent } from './shared/pages/header/header.component';
 import { UsersFormComponent } from './shared/pages/users-form/users-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RaceComponent } from './shared/pages/race/race.component';
-
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,8 @@ import { RaceComponent } from './shared/pages/race/race.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
