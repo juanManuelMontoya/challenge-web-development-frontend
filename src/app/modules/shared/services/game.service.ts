@@ -17,7 +17,7 @@ export class GameAutenticationService {
     private url: string;
 
     public messages!: Subject<any>;
-    socket_url : string = "ws://https://challenge-web-development.herokuapp.com/retrieve/";
+    socket_url : string = "wss://challenge-web-development.herokuapp.com/retrieve/";
 
     constructor(private http: HttpClient, private socket:GameSocket){
         this.url = environment.game.url;

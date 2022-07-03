@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DisplayService } from '../../shared/services/display.service';
 import { GameAutenticationService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
 
@@ -16,7 +17,8 @@ export class RaceComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private service: GameAutenticationService,
-    private socket: GameSocket
+    private socket: GameSocket,
+    private displayService: DisplayService
   ) {
 
     /*if(this.router.getCurrentNavigation().extras.state){
@@ -38,7 +40,9 @@ export class RaceComponent implements OnInit {
     });
 
   }
+
   ngOnInit(): void {
+    localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
   }
 
 }
