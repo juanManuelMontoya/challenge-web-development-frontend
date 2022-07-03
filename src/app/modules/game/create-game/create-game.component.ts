@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { GameAutenticationService } from 'src/app/shared/services/game.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { map } from '@firebase/util';
 
 @Component({
   selector: 'app-create-game',
@@ -12,7 +11,9 @@ import { map } from '@firebase/util';
 })
 export class CreateGameComponent implements OnInit {
 
-  raceCreated: boolean = false;
+  @Input()
+  readyToRace: boolean = false;
+  @Output() raceCreated = new EventEmitter<any>();
   gameForm!: FormGroup;
   gameId!: string;
 
@@ -54,7 +55,7 @@ export class CreateGameComponent implements OnInit {
 
     this.service.createGame(game).subscribe({
       next: (res) => {
-        this.raceCreated = true;
+        this.raceCreated.emit({isCreated: true, gameId: this.gameId});
         this.gameId = res;
       },
       error: (error) => {
@@ -62,31 +63,6 @@ export class CreateGameComponent implements OnInit {
       }
     });
   }
-
-  start() {
-    let game = {
-      juegoId: this.gameId
-    }
-
-    this.service.startGame(game).subscribe({
-      next: (res) => {
-        console.log(res);
-        //this.router.navigate(['race']);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
-  }
-
-  carrera():void{
-    //let id = "yyy" ;
-    //this.router.navigate(['race'], { state: { id: this.gameForm.get("gameId")?.value }});
-    //this.router.navigate(['/game/race' + id]);
-    this.router.navigate(['game/race', {id : "yyy"}]);
-  }
-  
-
 }
 
 interface Game {

@@ -2,11 +2,11 @@
 <div class="row position-absolute w-100 h-100 m-0 il-1">
     <div id="game-form" class="col-sm-4 align-self-center d-flex h-100">
       <div id="game-form-card" class="card text-white">
-        <app-create-game></app-create-game>
+        <app-create-game (raceCreated)="setRace($event)" [readyToRace]="raceCreated"></app-create-game>
       </div>
     </div>
     <div class="col-sm-8 p-0 d-flex align-items-center justify-content-center">
-        <button id="start-button" class="position-absolute i-1">
+        <button *ngIf="raceCreated" id="start-button" class="position-absolute i-1" (click)="start()">
             <em id="start-icon" class="fa fa-play-circle fa-10x"></em>
             <h2 class="bg-green">
                 Start
