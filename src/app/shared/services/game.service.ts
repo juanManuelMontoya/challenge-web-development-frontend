@@ -15,7 +15,15 @@ export class GameAutenticationService {
     }
 
     createGame(data:any): Observable<any>{
-        return this.http.post(`${this.url}crearJuego`, data, {responseType: 'text'});
+        return this.http.post(`${this.url}crearJuego`, data, {
+            responseType: 'text'
+        });
+    }
+
+    startGame(gameId: any): Observable<any> {
+        return this.http.post(`${this.url}iniciarJuego`, gameId, {
+            responseType: 'text'
+        });
     }
 
     getScore(){

@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ResetAccountComponent } from './auth/reset-account/reset-account.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -14,24 +11,18 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { environment } from 'src/environments/environment';
-import { HomeComponent } from './shared/pages/home/home.component';
-import { HeaderComponent } from './shared/pages/header/header.component';
-import { UsersFormComponent } from './shared/pages/users-form/users-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RaceComponent } from './shared/pages/race/race.component';
-import {FormsModule} from '@angular/forms';
+import { CoreModule } from './modules/core/core.module';
+import { UsersModule } from './modules/users/users.module';
+import { DisplayService } from './modules/shared/services/display.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    ResetAccountComponent,
-    HomeComponent,
-    HeaderComponent,
-    UsersFormComponent,
     RaceComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -41,10 +32,19 @@ import {FormsModule} from '@angular/forms';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    CoreModule,
+    UsersModule
   ],
-  providers: [],
+  exports: [
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    DisplayService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

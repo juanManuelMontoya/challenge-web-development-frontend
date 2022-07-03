@@ -12,7 +12,11 @@ export class GameSocket{
     }
     
   ngOnInit(): void {
+  }
 
+  init(aggregateId : string) : void {
+    this.aggregateId = aggregateId;
+    
     if (!this.connected) {
       var aggregateId = this.aggregateId;
       console.log("Val: " + aggregateId);

@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { User } from 'src/app/modules/shared/models/user';
-
+import * as auth from 'firebase/auth';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-
 
   userData: any;
 
@@ -91,6 +89,7 @@ export class AuthenticationService {
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((result: any) => {
       if (result) {
+        localStorage.setItem('user', JSON.stringify(result.user));
         this.SetUserData(result.user);
         this.router.navigate(['game/home']);
       }
@@ -101,6 +100,7 @@ export class AuthenticationService {
     return this.authentication
       .signInWithPopup(provider)
       .then((result) => {
+        localStorage.setItem('user', JSON.stringify(result.user));
         this.router.navigate(['game/home']);
         this.SetUserData(result.user);
       })
