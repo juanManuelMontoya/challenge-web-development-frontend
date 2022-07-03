@@ -1,43 +1,6 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
-}
-
 .avatar_image {
     border-radius: 60px;
     margin-bottom: 40px;
-}
-
-.wave {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    z-index: -1;
-}
-
-.img {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.login-content {
-
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-}
-
-.img img {
-    width: 500px;
 }
 
 form {
@@ -46,29 +9,6 @@ form {
     box-shadow: 5px 10px 18px #888888;
 }
 
-.login-content img {
-    height: 100px;
-}
-
-.login-content h2 {
-    margin: 15px 0;
-    color: #333;
-    text-transform: uppercase;
-    font-size: 2.9rem;
-}
-
-.login-content .input-div {
-    position: relative;
-    display: grid;
-    grid-template-columns: 7% 93%;
-    margin: 25px 0;
-    padding: 5px 0;
-    border-bottom: 2px solid #FFFFFF;
-}
-
-.login-content .input-div.one {
-    margin-top: 0;
-}
 
 .i {
     color: #FFFFFF;
@@ -103,7 +43,7 @@ form {
     bottom: -2px;
     width: 0%;
     height: 2px;
-    background-color: #3b1bb0;
+    background-color: #5e970c;
     transition: .4s;
 }
 
@@ -126,7 +66,7 @@ form {
 }
 
 .input-div.focus>.i>i {
-    color: #3b1bb0; ////#281d4e
+    color: #5e970c; ////#281d4e
 }
 
 .input-div>div>input {
@@ -157,7 +97,11 @@ a {
 }
 
 a:hover {
-    color: #3b1bb0;
+    color: #5e970c;
+}
+
+.forgot, .register {
+    padding: 10px;
 }
 
 .btn {
@@ -167,7 +111,7 @@ a:hover {
     border-radius: 25px;
     outline: none;
     border: none;
-    background-image: linear-gradient(to right, #3b1bb0, #3b1bb0, #3b1bb0); //#38d39f
+    background-image: linear-gradient(to right, #5e970c, #8eb928, #c2df47); //#38d39f
     background-size: 200%;
     font-size: 1.2rem;
     color: #fff;
@@ -227,29 +171,8 @@ a:hover {
     }
 }
 
-//------------Background-------------
-.bg-news {
-    background: -webkit-linear-gradient(70deg, #3b1bb0 40%, white 40%);
-    background: -o-linear-gradient(70deg, #3b1bb0 40%, white 40%);
-    background: -moz-linear-gradient(70deg, #3b1bb0 45%, white 40%);
-    background: linear-gradient(70deg, #3b1bb0 50%, white 40%);
-}
-
-.background-container {
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.background-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-}
-
-.over-background {
-	height: 100%;
+#login-btn {
+	background-image: linear-gradient(to right, #5e970c, #8eb928, #c2df47);
 }
 
 #login-card {
@@ -260,19 +183,11 @@ a:hover {
 
 .content {
 	height: 100%;
+    overflow: hidden;
 }
 
 #userPassword, #userName {
 	border: 1px solid #FFFFFF;
 	padding: 20px;
 	color: #999;
-}
-
-#race-img {
-	z-index: 1;
-	margin: 100px 0 0 100px;
-}
-
-#login-btn {
-	background-image: linear-gradient(to right, #5e970c, #8eb928, #c2df47);
 }
