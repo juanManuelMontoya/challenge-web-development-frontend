@@ -1,18 +1,18 @@
 <app-header></app-header>
 <div class="speedway">
-    <div [@race]="{value: isMoving ? 'move': '*', params:{x: getXPositionByCarTag('car1'), y: getYPositionByCarTag('car1'), deg: getDegPositionByCarTag('car1')}}"
+    <div [@race]="{value: isMoving ? 'move': 'notMove', params:{x: getXPositionByCarTag('car1'), y: getYPositionByCarTag('car1'), deg: getDegPositionByCarTag('car1')}}"
         class="car car1">
         <p class="player-name text-blue">
             {{ getDriverByCarTag('car1') }}
         </p>
     </div>
-    <div [@race]="{value: isMoving ? 'move': '*', params:{x: getXPositionByCarTag('car2'), y: getYPositionByCarTag('car2'), deg: getDegPositionByCarTag('car2')}}"
+    <div [@race]="{value: isMoving ? 'move': 'notMove', params:{x: getXPositionByCarTag('car2'), y: getYPositionByCarTag('car2'), deg: getDegPositionByCarTag('car2')}}"
         class="car car2">
         <p class="player-name text-red">
             {{ getDriverByCarTag('car2') }}
         </p>
     </div>
-    <div [@race]="{value: isMoving ? 'move': '*', params:{x: getXPositionByCarTag('car3'), y: getYPositionByCarTag('car3'), deg: getDegPositionByCarTag('car3')}}"
+    <div [@race]="{value: isMoving ? 'move': 'notMove', params:{x: getXPositionByCarTag('car3'), y: getYPositionByCarTag('car3'), deg: getDegPositionByCarTag('car3')}}"
         class="car car3">
         <p class="player-name text-green">
             {{ getDriverByCarTag('car3') }}

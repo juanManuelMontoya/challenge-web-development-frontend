@@ -22,7 +22,16 @@ import { GameSocket } from '../../shared/services/socket.service';
           deg: '0'
         }
       }),
-      transition('move <=> *', [
+      state('notMove', style({
+        transform: 'translateX({{ x }}vw) translateY({{ y }}vh) rotate({{ deg }}deg)'
+      }), {
+        params: {
+          x: '30',
+          y: '0',
+          deg: '0'
+        }
+      }),
+      transition('move <=> notMove', [
         animate('2s')
       ])
     ])
@@ -120,13 +129,13 @@ export class RaceComponent implements OnInit {
           car.deleteMovement();
         }
         movements.forEach(movement => {
-          setTimeout(() => {
-            this.isMoving = false;
-          }, 500);
           if (movement.angle != 0) {
             setTimeout(() => {
               this.isMoving = true;
               car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), car.degPosition());
+            }, 500);
+            setTimeout(() => {
+              this.isMoving = false;
             }, 500);
             setTimeout(() => {
               this.isMoving = true;
@@ -138,6 +147,9 @@ export class RaceComponent implements OnInit {
               car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), movement.angle.toString());
             }, 500);
           }
+          setTimeout(() => {
+            this.isMoving = false;
+          }, 500);
         });
       }
     });
