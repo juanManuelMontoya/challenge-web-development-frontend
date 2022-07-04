@@ -22,19 +22,7 @@ import { GameSocket } from '../../shared/services/socket.service';
               //left:'{{left}}',
               transform:'translateX({{left}}vw) translateY({{ejey}}vh) rotate({{rotate}}deg)',
           }), {params: {left: '250px', ejey:'0', rotate:'0'}} // parameter passed in the template
-      )/*,
-      state('top', 
-          style({
-              top:'{{left}}',
-              transform:'rotate({{rotate}}deg)',
-          }), {params: {left: '250px', rotate:'0'}}  // parameter passed in the template
       ),
-      transition('left => right', [
-          animate('1000ms')  // parameter passed in the template
-      ]),
-      transition('right => top', [
-        animate('1000ms')  // parameter passed in the template
-      ])*/,
       transition('right => left', [
           animate('{{time}}')  // parameter passed in the template
       ])
