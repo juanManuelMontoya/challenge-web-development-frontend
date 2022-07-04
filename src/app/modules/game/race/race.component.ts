@@ -1,3 +1,4 @@
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DisplayService } from '../../shared/services/display.service';
@@ -7,12 +8,49 @@ import { GameSocket } from '../../shared/services/socket.service';
 @Component({
   selector: 'app-race',
   templateUrl: './race.component.html',
-  styleUrls: ['./race.component.scss']
+  styleUrls: ['./race.component.scss'],
+  animations:[
+    trigger('position',[
+      state('left', 
+          style({
+              //left: '32vw',
+              transform:'translateX({{left}}vw) translateY({{ejey}}vh) rotate({{rotate}}deg)',
+          }), {params: {left: '250px', ejey:'0', rotate:'0'}}
+      ),
+      state('right', 
+          style({
+              //left:'{{left}}',
+              transform:'translateX({{left}}vw) translateY({{ejey}}vh) rotate({{rotate}}deg)',
+          }), {params: {left: '250px', ejey:'0', rotate:'0'}} // parameter passed in the template
+      )/*,
+      state('top', 
+          style({
+              top:'{{left}}',
+              transform:'rotate({{rotate}}deg)',
+          }), {params: {left: '250px', rotate:'0'}}  // parameter passed in the template
+      ),
+      transition('left => right', [
+          animate('1000ms')  // parameter passed in the template
+      ]),
+      transition('right => top', [
+        animate('1000ms')  // parameter passed in the template
+      ])*/,
+      transition('right => left', [
+          animate('{{time}}')  // parameter passed in the template
+      ])
+  ])
+  ]
 })
 export class RaceComponent implements OnInit {
 
   agregateID: string;
   routestate: any;
+  position:string = 'left'
+  leftPosition:string = '32vw'
+  animationTime:string = '1000ms'
+  ejeyMove :string = '0';
+  rotateMove : string = '0deg';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -44,5 +82,15 @@ export class RaceComponent implements OnInit {
   ngOnInit(): void {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
   }
+
+  move(position:string, distance:string, rotate:string, ejey:string){
+      console.log(position + " " + distance);
+      
+      this.animationTime.slice(-2) == 'ms' ? null : this.animationTime = this.animationTime + 'ms'
+      this.leftPosition = distance;
+      ejey != null ? this.ejeyMove = ejey : '0';
+      this.position = position;
+      rotate != null ? this.rotateMove = rotate : this.rotateMove = '0';
+  } 
 
 }

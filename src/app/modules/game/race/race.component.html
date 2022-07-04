@@ -3,16 +3,20 @@
     <div class="car car1">
         <p class="player-name text-blue">Jugador 1</p>
     </div>
-    <div class="car car2">
+    <div [@position]="{value:position, params:{time:animationTime, left:leftPosition, rotate:rotateMove, ejey:ejeyMove}}" class="car car2"> 
         <p class="player-name text-red">Jugador 2</p>
     </div>
     <div class="car car3">
         <p class="player-name text-green">Jugador 3</p>
     </div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button (click)="move(userName.value,distance.value,rotate.value,ejey.value)" type="button" class="btn btn-primary" ><!--data-bs-toggle="modal" data-bs-target="#exampleModal">-->
         Resultados
     </button>
+    <input type="text" style="width: 100px;" id="userName" #userName>
+    <input type="text" style="width: 100px;" id="distance" #distance>
+    <input type="text" style="width: 100px;" id="ejey" #ejey>
+    <input type="text" style="width: 100px;" id="rotate" #rotate>
   
     
 </div>

@@ -9,15 +9,13 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
-import { RaceComponent } from './modules/game/race/race.component';
 import { CoreModule } from './modules/core/core.module';
 import { UsersModule } from './modules/users/users.module';
 import { DisplayService } from './modules/shared/services/display.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -35,7 +33,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
-    UsersModule
+    UsersModule,
+    BrowserAnimationsModule
   ],
   exports: [
     FormsModule,
