@@ -1,8 +1,8 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DisplayService } from '../../shared/services/display.service';
-import { GameAutenticationService } from '../../shared/services/game.service';
+import { GameService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
 
 @Component({
@@ -29,6 +29,7 @@ import { GameSocket } from '../../shared/services/socket.service';
   ])
   ]
 })
+
 export class RaceComponent implements OnInit {
 
   agregateID: string;
@@ -38,15 +39,27 @@ export class RaceComponent implements OnInit {
   animationTime:string = '1000ms'
   ejeyMove :string = '0';
   rotateMove : string = '0deg';
+  //Modal Controlers
+  showModalBox : boolean = false; 
+  showHistory : boolean = false;
 
+  players = [
+    {jugadorId: 1, nombre:'Superman', puntos:4},
+    {jugadorId: 2, nombre:'Batman', puntos:3},
+    {jugadorId: 5, nombre:'BatGirl', puntos:2},
+    {jugadorId: 3, nombre:'Robin', puntos:4},
+    {jugadorId: 4, nombre:'Flash', puntos:5}
+];  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private service: GameAutenticationService,
+    private service: GameService,
     private socket: GameSocket,
     private displayService: DisplayService
   ) {
 
+    this.getHistoryData();
+    
     /*if(this.router.getCurrentNavigation().extras.state){
       this.routestate = this.router.getCurrentNavigation().extras.state;
       this.agregateID =  this.routeState.id ? JSON.parse(this.routeState.id) : '';;
@@ -81,4 +94,19 @@ export class RaceComponent implements OnInit {
       rotate != null ? this.rotateMove = rotate : this.rotateMove = '0';
   } 
 
+  modalOpen() : void {
+    this.showModalBox == false ? this.showModalBox = true : this.showModalBox = false;
+  }
+
+  hideHistorial() : void {
+    this.showHistory = this.showHistory == false ? true : false;
+  }
+
+  getHistoryData(): void {
+    this.service.getScore().subscribe( res => this.players = res, error => console.log(error) );
+
+    /*this.players.sort(function (x,y){
+      return x.puntos > y.puntos ? 1: -1;
+    });*/
+  }
 }

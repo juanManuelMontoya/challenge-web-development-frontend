@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DisplayService } from '../../shared/services/display.service';
-import { GameAutenticationService } from '../../shared/services/game.service';
+import { GameService } from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   raceCreated: boolean = false;
   gameId!: string;
 
-  constructor(private displayService: DisplayService, private router: Router, private service: GameAutenticationService) { 
+  constructor(private displayService: DisplayService, private router: Router, private service: GameService) { 
     
   }
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../shared/services/authentication.service';
-import { GameAutenticationService } from '../../shared/services/game.service';
+import { GameService } from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-create-game',
@@ -19,7 +19,7 @@ export class CreateGameComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthenticationService,
-    private service: GameAutenticationService,
+    private service: GameService,
     private formGroup: FormBuilder
   ) {
     this.gameForm = this.formGroup.group({
