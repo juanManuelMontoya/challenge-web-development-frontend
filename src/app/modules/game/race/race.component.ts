@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Car } from '../../shared/models/car';
-import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3, TrackFragment } from '../../shared/models/trackFragment';
+import { TrackFragment } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
 import { GameService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
@@ -46,8 +46,11 @@ export class RaceComponent implements OnInit {
   kilometers:number = 2000;
   // data example podio
   players = [
-    {jugadorId: 1, nombre:'Superman', puntos:4}
-];  
+    {jugadorId: 1, nombre:'Superman', puntos:4}];
+  puesto1!: any;
+  puesto2!: any;
+  puesto3!: any;  
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -122,10 +125,10 @@ export class RaceComponent implements OnInit {
 
           //this.moveT(movements, car);
           this.move(car.CarTag(),distance.toString());
-        } else if(res.type.includes('JuegoFinalizado')){
-          this.puesto1 = res.podio.primerLugar;
-          this.puesto2 = res.podio.segundoLugar;
-          this.puesto3 = res.podio.tercerLugar;
+        } else if(msg.type.includes('JuegoFinalizado')){
+          this.puesto1 = msg.podio.primerLugar;
+          this.puesto2 = msg.podio.segundoLugar;
+          this.puesto3 = msg.podio.tercerLugar;
           this.modalOpen();
         }
       },
