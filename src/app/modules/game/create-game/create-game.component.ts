@@ -64,9 +64,9 @@ export class CreateGameComponent implements OnInit {
           new Car(data[1].carroId, 'car2', data[1].conductor[Object.keys(data[1].conductor)[0]], trackFragmentCar2),
           new Car(data[2].carroId, 'car3', data[2].conductor[Object.keys(data[2].conductor)[0]], trackFragmentCar3)
         ]
-        
+
         this.displayService.setCarSubject(cars);
-        this.raceCreated.emit({isCreated: true, gameId: res});
+        this.raceCreated.emit({isCreated: true, gameId: data[0].juegoId});
       },
       error: (error) => {
         console.error(error);
