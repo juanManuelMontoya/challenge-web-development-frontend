@@ -122,11 +122,6 @@ export class RaceComponent implements OnInit {
 
           //this.moveT(movements, car);
           this.move(car.CarTag(),distance.toString());
-        } else if(res.type.includes('JuegoFinalizado')){
-          this.puesto1 = res.podio.primerLugar;
-          this.puesto2 = res.podio.segundoLugar;
-          this.puesto3 = res.podio.tercerLugar;
-          this.modalOpen();
         }
       },
       error: (error) => {
@@ -165,11 +160,6 @@ export class RaceComponent implements OnInit {
     });*/
   }
 
-  calculateDistance(distance:number){
-    console.log((distance*80)/this.kilometers);
-    
-    return (distance*80)/this.kilometers;
-  }
   public createMovements(distance: number, car: Car) {
     let carMovements = car.Movements();
     let movements = [];
