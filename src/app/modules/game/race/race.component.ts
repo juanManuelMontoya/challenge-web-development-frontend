@@ -51,7 +51,12 @@ export class RaceComponent implements OnInit {
   // data example podio
   players = [
     {jugadorId: 1, nombre:'Superman', puntos:4}
-];  
+  ];  
+
+  puesto1 :string = "";
+  puesto2 :string = "";
+  puesto3 :string = "";
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -71,14 +76,7 @@ export class RaceComponent implements OnInit {
     this.agregateID = this.route.snapshot.params['id'];
 
     this.service.setUrl(this.agregateID);
-    this.service.messages.subscribe({
-      next: (res) => {
-        console.log('Response recieved from websocket: ' + res.carrilId.uuid);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    
 
   }
 
@@ -105,7 +103,25 @@ export class RaceComponent implements OnInit {
   }
 
   start() {
-    data.forEach(msg => {
+    this.service.messages.subscribe({
+      next: (res) => {
+        console.log('Type' + res.type);
+        if(res.type.includes('KilometrajeCambiado')){
+          let distance = res.distance;
+          let car = this.cars.filter(current => current.CarId() == res.aggregateRootId)[0];
+          this.move(car.CarTag(),distance.toString());
+        }else if(res.type.includes('JuegoFinalizado')){
+          this.puesto1 = res.podio.primerLugar;
+          this.puesto2 = res.podio.segundoLugar;
+          this.puesto3 = res.podio.tercerLugar;
+          this.modalOpen();
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+    /*data.forEach(msg => {
       if (msg.type.includes('KilometrajeCambiado')) {
         let distance = msg.distancia!;
         let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
@@ -114,7 +130,7 @@ export class RaceComponent implements OnInit {
         //this.moveT(movements, car);
         this.move(car.CarTag(),distance.toString());
       }
-    });
+    });*/
   }
 
   move(car:string,distance:string){
@@ -140,11 +156,13 @@ export class RaceComponent implements OnInit {
   }
 
   getHistoryData(): void {
-    this.service.getScore().subscribe( res => this.players = res, error => console.log(error) );
+    this.service.getScore().subscribe( res => this.players = res.sort((a : any, b : any) => { 
+      if(a.puntos > b.puntos){
+        return -1;
+      }
 
-    /*this.players.sort(function (x,y){
-      return x.puntos > y.puntos ? 1: -1;
-    });*/
+      return 1;
+    }), error => console.log(error) );
   }
 
   calculateDistance(distance:number){

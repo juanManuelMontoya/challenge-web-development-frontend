@@ -54,6 +54,8 @@ export class CreateGameComponent implements OnInit {
 
     this.service.createGame(game).subscribe({
       next: (res) => {
+        console.log(res);
+        localStorage.setItem('carsCreated', JSON.stringify(res))
         this.raceCreated.emit({isCreated: true, gameId: res});
       },
       error: (error) => {
