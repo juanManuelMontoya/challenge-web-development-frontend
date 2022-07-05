@@ -178,11 +178,6 @@ export class RaceComponent implements OnInit {
     }), error => console.log(error) );
   }
 
-  calculateDistance(distance:number){
-    console.log((distance*80)/this.totalDistance);
-    
-    return (distance*80)/this.totalDistance;
-  }
   public createMovements(distance: number, car: Car) {
     let carMovements = car.Movements();
     let movements = [];
@@ -241,6 +236,11 @@ export class RaceComponent implements OnInit {
     });
   }
 
+  calculateDistance(distance:number){
+    console.log((distance*80)/this.totalDistance);
+    
+    return (distance*80)/this.totalDistance;
+  }
 }
 
 const data = [
