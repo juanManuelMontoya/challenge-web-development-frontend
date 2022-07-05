@@ -9,7 +9,8 @@
     <div [@car3]="{value:position, params:{time:animationTime, left:leftPosition}}"  class="car car3">
         <p class="player-name text-green">Jugador 3</p>
     </div>
-    <button (click)="move(distance.value)">move</button>
+    <button (click)="move(car.value,distance.value)">move</button>
+    <input style="width:100px ;" type="text" class="input" #car id="car">
     <input style="width:100px ;" type="text" class="input" #distance id="distance">
    <!-- Button trigger modal 
     <button type="button" class="btn btn-primary" (click)="modalOpen()">
