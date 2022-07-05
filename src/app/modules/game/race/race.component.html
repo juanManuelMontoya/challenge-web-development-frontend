@@ -1,64 +1,72 @@
 <app-header></app-header>
 <div class="speedway">
-    <div class="car car1">
+    <div [@car1]="{value:position, params:{time:animationTime, left:leftPosition}}"  class="car car1">
         <p class="player-name text-blue">Jugador 1</p>
     </div>
-    <div [@position]="{value:position, params:{time:animationTime, left:leftPosition, rotate:rotateMove, ejey:ejeyMove}}" class="car car2"> 
+    <div [@car2]="{value:position, params:{time:animationTime, left:leftPosition}}" class="car car2"> 
         <p class="player-name text-red">Jugador 2</p>
     </div>
-    <div class="car car3">
+    <div [@car3]="{value:position, params:{time:animationTime, left:leftPosition}}"  class="car car3">
         <p class="player-name text-green">Jugador 3</p>
     </div>
-   <!-- Button trigger modal -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" (click)="modalOpen()" data-bs-target="#exampleModal">
-    Resultados
-  </button>
-  
-  <!-- Modal -->
-  <div *ngIf="showModalBox" class="" id="exampleModal"  aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 *ngIf="!showHistory" class="modal-title" id="exampleModalLabel">Podium</h5>
-          <h5 *ngIf="showHistory" class="modal-title" id="exampleModalLabel">Historial de usuarios</h5>
-          <button type="button" class="btn-close" (click)="modalOpen()" aria-label="Close"></button>
-        </div>
-        <div *ngIf="!showHistory" class="modal-body">
-            <div class="row podio" style="text-align: center;">
-                <div class="ms-auto winners-name" style="margin-top: 5vh;"><label style="margin-left: 4vw;" for="">juan</label></div>
+    <button (click)="move(distance.value)">move</button>
+    <input style="width:100px ;" type="text" class="input" #distance id="distance">
+   <!-- Button trigger modal 
+    <button type="button" class="btn btn-primary" (click)="modalOpen()">
+        Resultados
+    </button>
 
-                <div class="winners-name"><label for="">juan</label></div>
-
-                <div class="winners-name" style="margin-top: 7vh;"><label style="margin-right: 5vw;" for="">juan</label></div>
+    
+    <input style="width:100px ;" type="text" class="input" #position id="position">
+    <input style="width:100px ;" type="text" class="input" #distance id="distance">
+    <input style="width:100px ;" type="text" class="input" #ejey id="ejey">
+    <input style="width:100px ;" type="text" class="input" #rotate id="rotate">
+    <input style="width:100px ;" type="text" class="input" #porcentaje id="porcentaje">-->
+    
+    <!-- Modal -->
+    <div *ngIf="showModalBox" class="" id="exampleModal"  aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 *ngIf="!showHistory" class="modal-title" id="exampleModalLabel">Podium</h5>
+            <h5 *ngIf="showHistory" class="modal-title" id="exampleModalLabel">Historial de usuarios</h5>
+            <button type="button" class="btn-close" (click)="modalOpen()" aria-label="Close"></button>
             </div>
-            
-            <!--<img src="../../../../assets/img/podio.png" alt="" class="podio border-b">-->
+            <div *ngIf="!showHistory" class="modal-body">
+                <div class="row podio" style="text-align: center;">
+                    <div class="ms-auto winners-name" style="margin-top: 5vh;"><label style="margin-left: 4vw;" for="">juan</label></div>
+
+                    <div class="winners-name"><label for="">juan</label></div>
+
+                    <div class="winners-name" style="margin-top: 7vh;"><label style="margin-right: 5vw;" for="">juan</label></div>
+                </div>
+                
+                <!--<img src="../../../../assets/img/podio.png" alt="" class="podio border-b">-->
+            </div>
+            <div *ngIf="showHistory" class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">JugadorID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Puntos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let hero of players">
+                        <th scope="row">{{hero.jugadorId}}</th>
+                        <td>{{hero.nombre}}</td>
+                        <td>{{hero.puntos}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalOpen()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="hideHistorial()">Historial de puntajes</button>
+            </div>
         </div>
-        <div *ngIf="showHistory" class="modal-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                      <th scope="col">JugadorID</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Puntos</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let hero of players">
-                      <th scope="row">{{hero.jugadorId}}</th>
-                      <td>{{hero.nombre}}</td>
-                      <td>{{hero.puntos}}</td>
-                    </tr>
-                  </tbody>
-            </table>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="modalOpen()">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="hideHistorial()">Historial de puntajes</button>
-        </div>
-      </div>
     </div>
-  </div>
   
 </div>

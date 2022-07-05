@@ -1,5 +1,5 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DisplayService } from '../../shared/services/display.service';
 import { GameService } from '../../shared/services/game.service';
@@ -10,22 +10,47 @@ import { GameSocket } from '../../shared/services/socket.service';
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.scss'],
   animations:[
-    trigger('position',[
-      state('left', 
+    trigger('car1',[
+      state('car1', 
           style({
-              //left: '32vw',
-              transform:'translateX({{left}}vw) translateY({{ejey}}vh) rotate({{rotate}}deg)',
-          }), {params: {left: '250px', ejey:'0', rotate:'0'}}
+            transform:'translateX({{left}}vw)'
+          }), {params: {left: '60'}}  // parameter passed in the template
       ),
-      state('right', 
-          style({
-              //left:'{{left}}',
-              transform:'translateX({{left}}vw) translateY({{ejey}}vh) rotate({{rotate}}deg)',
-          }), {params: {left: '250px', ejey:'0', rotate:'0'}} // parameter passed in the template
-      ),
-      transition('right => left', [
+
+      transition('left => right', [
           animate('{{time}}')  // parameter passed in the template
-      ])
+      ]),
+      transition('* => right', [
+        animate('{{time}}')  // parameter passed in the template
+    ])
+  ]),
+  trigger('car2',[
+    state('car2', 
+        style({
+          transform:'translateX({{left}}vw)'
+        }), {params: {left: '60'}}  // parameter passed in the template
+    ),
+
+    transition('left => right', [
+        animate('{{time}}')  // parameter passed in the template
+    ]),
+    transition('* => right', [
+      animate('{{time}}')  // parameter passed in the template
+    ])
+  ]),
+  trigger('car3',[
+    state('car3', 
+        style({
+          transform:'translateX({{left}}vw)'
+        }), {params: {left: '60'}}  // parameter passed in the template
+    ),
+
+    transition('left => right', [
+        animate('{{time}}')  // parameter passed in the template
+    ]),
+    transition('* => right', [
+      animate('{{time}}')  // parameter passed in the template
+    ])
   ])
   ]
 })
@@ -34,21 +59,18 @@ export class RaceComponent implements OnInit {
 
   agregateID: string;
   routestate: any;
-  position:string = 'left'
-  leftPosition:string = '32vw'
-  animationTime:string = '1000ms'
-  ejeyMove :string = '0';
-  rotateMove : string = '0deg';
   //Modal Controlers
   showModalBox : boolean = false; 
   showHistory : boolean = false;
 
+  //animation variable
+  position:string = 'left'/*  */
+  leftPosition:string = '13'//'1800px'
+  animationTime:string = '1000ms'
+  kilometers:number = 2000;
+  // data example podio
   players = [
-    {jugadorId: 1, nombre:'Superman', puntos:4},
-    {jugadorId: 2, nombre:'Batman', puntos:3},
-    {jugadorId: 5, nombre:'BatGirl', puntos:2},
-    {jugadorId: 3, nombre:'Robin', puntos:4},
-    {jugadorId: 4, nombre:'Flash', puntos:5}
+    {jugadorId: 1, nombre:'Superman', puntos:4}
 ];  
   constructor(
     private router: Router,
@@ -84,15 +106,16 @@ export class RaceComponent implements OnInit {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
   }
 
-  move(position:string, distance:string, rotate:string, ejey:string){
-      console.log(position + " " + distance);
+
+  move(distance:string){
+
+      this.animationTime.slice(-2) == 'ms' ? null : this.animationTime = this.animationTime + 'ms';
+      let distanceNum = parseInt(this.leftPosition);
+      distanceNum = distance != null ? distanceNum + this.calculateDistance(parseInt(distance)) : distance;
+      this.leftPosition = distanceNum.toString() ;
+      this.position = 'right';
       
-      this.animationTime.slice(-2) == 'ms' ? null : this.animationTime = this.animationTime + 'ms'
-      this.leftPosition = distance;
-      ejey != null ? this.ejeyMove = ejey : '0';
-      this.position = position;
-      rotate != null ? this.rotateMove = rotate : this.rotateMove = '0';
-  } 
+  }
 
   modalOpen() : void {
     this.showModalBox == false ? this.showModalBox = true : this.showModalBox = false;
@@ -108,5 +131,11 @@ export class RaceComponent implements OnInit {
     /*this.players.sort(function (x,y){
       return x.puntos > y.puntos ? 1: -1;
     });*/
+  }
+
+  calculateDistance(distance:number){
+    console.log((distance*80)/this.kilometers);
+    
+    return (distance*80)/this.kilometers;
   }
 }
