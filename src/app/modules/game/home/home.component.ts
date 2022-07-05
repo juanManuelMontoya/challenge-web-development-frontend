@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Car } from '../../shared/models/car';
+import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3 } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
 import { GameAutenticationService } from '../../shared/services/game.service';
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Car } from '../shared/models/car';
 import { HomeComponent } from './home/home.component';
 import { RaceComponent } from './race/race.component';
 
@@ -14,7 +15,9 @@ const routes: Routes = [
   {
     path: 'race', 
     component: RaceComponent, 
-    data : {}
+    data : {
+      id: String
+    }
   }
 ];
 
