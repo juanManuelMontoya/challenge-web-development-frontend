@@ -58,7 +58,7 @@ export class CreateGameComponent implements OnInit {
 
     this.service.createGame(game).subscribe({
       next: (res: any) => {
-        this.displayService.setRaceLengthSubject(game.kilometros);
+        this.displayService.setRaceLengthSubject(game.kilometros * 1000);
         this.raceCreated.emit({isCreated: true, gameId: res});
       },
       error: (error: any) => {

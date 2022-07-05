@@ -127,10 +127,10 @@ export class RaceComponent implements OnInit {
         console.log('Type' + res.type);
         if(res.type.includes('KilometrajeCambiado')){
           let distance = res.distancia;
-          console.log(res.aggregateRootId);
+          console.log(res.distancia);
           
           let car = this.cars.filter(current => current.CarId() == res.aggregateRootId)[0];
-          this.move(car.CarTag(),distance.toString());
+          this.move(car.CarTag(),distance);
         }else if(res.type.includes('JuegoFinalizado')){
           this.puesto1 = res.podio.primerLugar;
           this.puesto2 = res.podio.segundoLugar;
@@ -146,19 +146,21 @@ export class RaceComponent implements OnInit {
     });
   }
 
-  move(car:string,distance:string){
+  move(car:string,distance:number){
 
       let currentCar = this.cars.filter(curent => curent.CarTag() == car)[0];
 
       this.animationTime.slice(-2) == 'ms' ? null : this.animationTime = this.animationTime + 'ms';
-      let distanceNum = parseInt(this.leftPosition);
-      distanceNum = distance != null ? distanceNum + this.calculateDistance(parseInt(distance)) : distance;
-      this.leftPosition = distanceNum.toString() ;
-      currentCar.modifyPosition(this.leftPosition,"","");
+      let distanceNum = parseInt(currentCar.xPosition())//parseInt(this.leftPosition);
+      distanceNum = distance != null ? distanceNum + this.calculateDistance(distance) : distance;
+      this.leftPosition = distanceNum.toString();
+      //console.log("distancia que pasa al transform : " + distanceNum.toString());
+      
+      currentCar.modifyPosition(distanceNum.toString(),"","");
       this.position = 'move';
       console.log(car);
-      
   }
+
 
   modalOpen() : void {
     this.showModalBox == false ? this.showModalBox = true : this.showModalBox = false;
