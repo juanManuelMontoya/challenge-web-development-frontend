@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Car } from '../../shared/models/car';
-import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3, TrackFragment } from '../../shared/models/trackFragment';
+import { TrackFragment } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
 import { GameService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
@@ -33,11 +33,7 @@ export class RaceComponent implements OnInit {
   routestate: any;
   totalDistance: number = 2000;
   isMoving: boolean = false;
-  cars: Car[] = [
-    new Car('be337f95-dbb6-4adb-9079-de56c6eccbd1', 'car1', "Felipe3", trackFragmentCar1),
-    new Car('f1999cbe-573e-4694-a62d-9680aadaa784', 'car2', "Andrés3", trackFragmentCar2),
-    new Car('afd3e706-7ee6-4f1a-999b-0528714d041e', 'car3', "Juan3", trackFragmentCar3)
-  ];
+  cars: Car[] = [];
 
   //Modal Controlers
   showModalBox : boolean = false; 
@@ -83,8 +79,28 @@ export class RaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let distance = this.totalDistance / 9;
-    this.changeMovementsDistance(distance);
+    this.displayService.cars.subscribe({
+      next: (res) => {
+        res.forEach((car) => {
+          this.cars.push(car);
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+    this.displayService.raceLength.subscribe({
+      next: (res) => {
+        this.totalDistance = res;
+        let distance = this.totalDistance / 9;
+        this.changeMovementsDistance(distance);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
     setTimeout(() => {
       this.start();
     }, 500);
@@ -106,7 +122,6 @@ export class RaceComponent implements OnInit {
 
   start() {
     this.service.messages.subscribe({
-<<<<<<< HEAD
       next: (res) => {
         console.log('Type' + res.type);
         if(res.type.includes('KilometrajeCambiado')){
@@ -118,32 +133,14 @@ export class RaceComponent implements OnInit {
           this.puesto2 = res.podio.segundoLugar;
           this.puesto3 = res.podio.tercerLugar;
           this.modalOpen();
-=======
-      next: (msg) => {
-        //console.log('Response recieved from websocket: ' + msg);
-        if (msg.type.includes('KilometrajeCambiado')) {
-          let distance = msg.distancia!;
-          let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
-          let movements: TrackFragment[] = this.createMovements(distance, car);
-  
-          this.move(movements, car);
->>>>>>> 642fc8ed918c52a177b97364b776806d9ba9820a
+
+
         }
       },
       error: (error) => {
         console.log(error);
       }
     });
-    /*data.forEach(msg => {
-      if (msg.type.includes('KilometrajeCambiado')) {
-        let distance = msg.distancia!;
-        let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
-        //let movements: TrackFragment[] = this.createMovements(distance, car);
-
-        //this.moveT(movements, car);
-        this.move(car.CarTag(),distance.toString());
-      }
-    });*/
   }
 
   move(car:string,distance:string){
