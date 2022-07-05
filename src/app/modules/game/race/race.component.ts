@@ -111,6 +111,7 @@ export class RaceComponent implements OnInit {
       distanceNum = distance != null ? distanceNum + this.calculateDistance(parseInt(distance)) : distance;
       this.leftPosition = distanceNum.toString() ;
       this.position = car;
+      console.log(car);
       
   }
 
