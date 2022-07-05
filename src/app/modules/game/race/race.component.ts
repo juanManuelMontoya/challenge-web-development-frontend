@@ -31,13 +31,9 @@ export class RaceComponent implements OnInit {
 
   agregateID: string;
   routestate: any;
-  totalDistance: number = 2000;
+  totalDistance!: number;
   isMoving: boolean = false;
-  cars: Car[] = [
-    new Car('be337f95-dbb6-4adb-9079-de56c6eccbd1', 'car1', "Felipe3", trackFragmentCar1),
-    new Car('f1999cbe-573e-4694-a62d-9680aadaa784', 'car2', "Andrés3", trackFragmentCar2),
-    new Car('afd3e706-7ee6-4f1a-999b-0528714d041e', 'car3', "Juan3", trackFragmentCar3)
-  ];
+  cars: Car[] = [];
 
   //Modal Controlers
   showModalBox : boolean = false; 
@@ -71,20 +67,31 @@ export class RaceComponent implements OnInit {
     this.agregateID = this.route.snapshot.params['id'];
 
     this.service.setUrl(this.agregateID);
-    this.service.messages.subscribe({
+  }
+
+  ngOnInit(): void {
+    this.displayService.cars.subscribe({
       next: (res) => {
-        console.log('Response recieved from websocket: ' + res.carrilId.uuid);
+        res.forEach((car) => {
+          this.cars.push(car);
+        });
       },
       error: (error) => {
         console.log(error);
       }
     });
 
-  }
+    this.displayService.raceLength.subscribe({
+      next: (res) => {
+        this.totalDistance = res;
+        let distance = this.totalDistance / 9;
+        this.changeMovementsDistance(distance);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
 
-  ngOnInit(): void {
-    let distance = this.totalDistance / 9;
-    this.changeMovementsDistance(distance);
     setTimeout(() => {
       this.start();
     }, 500);
@@ -105,14 +112,25 @@ export class RaceComponent implements OnInit {
   }
 
   start() {
-    data.forEach(msg => {
-      if (msg.type.includes('KilometrajeCambiado')) {
-        let distance = msg.distancia!;
-        let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
-        //let movements: TrackFragment[] = this.createMovements(distance, car);
+    this.service.messages.subscribe({
+      next: (msg) => {
+        //console.log('Response recieved from websocket: ' + msg);
+        if (msg.type.includes('KilometrajeCambiado')) {
+          let distance = msg.distancia!;
+          let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
+          //let movements: TrackFragment[] = this.createMovements(distance, car);
 
-        //this.moveT(movements, car);
-        this.move(car.CarTag(),distance.toString());
+          //this.moveT(movements, car);
+          this.move(car.CarTag(),distance.toString());
+        } else if(res.type.includes('JuegoFinalizado')){
+          this.puesto1 = res.podio.primerLugar;
+          this.puesto2 = res.podio.segundoLugar;
+          this.puesto3 = res.podio.tercerLugar;
+          this.modalOpen();
+        }
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
   }
