@@ -66,6 +66,8 @@ export class RaceComponent implements OnInit {
   ) {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
 
+    let cars = localStorage.getItem('car')
+
     this.getHistoryData();
     
     /*if(this.router.getCurrentNavigation().extras.state){
