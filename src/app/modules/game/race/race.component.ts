@@ -41,7 +41,7 @@ export class RaceComponent implements OnInit {
 
   agregateID: string;
   routestate: any;
-  totalDistance: number = 2000;
+  totalDistance!: number;
   isMoving: boolean = false;
   cars: Car[] = [];
 
@@ -53,13 +53,6 @@ export class RaceComponent implements OnInit {
     private displayService: DisplayService
   ) {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
-    this.displayService.cars.subscribe({
-      next: (res) => {
-        res.forEach((car) => {
-          this.cars.push(car);
-        });
-      }
-    });
 
     this.agregateID = this.route.snapshot.params['id'];
 
@@ -67,8 +60,28 @@ export class RaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let distance = this.totalDistance / 9;
-    this.changeMovementsDistance(distance);
+    this.displayService.cars.subscribe({
+      next: (res) => {
+        res.forEach((car) => {
+          this.cars.push(car);
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+    this.displayService.raceLength.subscribe({
+      next: (res) => {
+        this.totalDistance = res;
+        let distance = this.totalDistance / 9;
+        this.changeMovementsDistance(distance);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
     setTimeout(() => {
       this.start();
     }, 500);
