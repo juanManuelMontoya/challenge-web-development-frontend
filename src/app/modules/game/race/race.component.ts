@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Car } from '../../shared/models/car';
-import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3 } from '../../shared/models/trackFragment';
+import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3, TrackFragment } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
 import { GameAutenticationService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
@@ -31,8 +31,8 @@ import { GameSocket } from '../../shared/services/socket.service';
           deg: '0'
         }
       }),
-      transition('move <=> notMove', [
-        animate('2s')
+      transition('move => notMove', [
+        animate('30s 30s')
       ])
     ])
   ]
@@ -56,6 +56,7 @@ export class RaceComponent implements OnInit {
     private socket: GameSocket,
     private displayService: DisplayService
   ) {
+    localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
 
     this.agregateID = this.route.snapshot.params['id'];
 
@@ -72,11 +73,11 @@ export class RaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
-
     let distance = this.totalDistance / 9;
     this.changeMovementsDistance(distance);
-    this.start();
+    setTimeout(() => {
+      this.start();
+    }, 500);
   }
 
   getDriverByCarTag(carTag: string) {
@@ -108,50 +109,68 @@ export class RaceComponent implements OnInit {
       if (msg.type.includes('KilometrajeCambiado')) {
         let distance = msg.distancia!;
         let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
-        let carMovements = car.Movements();
-        let movements = [];
+        let movements: TrackFragment[] = this.createMovements(distance, car);
 
-        for (const movement of carMovements) {
-          if (movement.metersDistance < distance) {
-            movements.push(movement);
-            distance -= movement.metersDistance;
-          } else if ((movement.metersDistance >= distance && distance > 0)) {
-            movements.push({
-              id: movement.id,
-              metersDistance: distance,
-              vwDistance: distance * movement.vwDistance / movement.metersDistance,
-              vhDistance: distance * movement.vhDistance / movement.metersDistance,
-              angle: movement.angle
-            });
-
-            break;
-          }
-          car.deleteMovement();
-        }
-        movements.forEach(movement => {
-          if (movement.angle != 0) {
-            setTimeout(() => {
-              this.isMoving = true;
-              car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), car.degPosition());
-            }, 500);
-            setTimeout(() => {
-              this.isMoving = false;
-            }, 500);
-            setTimeout(() => {
-              this.isMoving = true;
-              car.modifyPosition(car.xPosition(), car.yPosition(), movement.angle.toString());
-            }, 500);
-          } else {
-            setTimeout(() => {
-              this.isMoving = true;
-              car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), movement.angle.toString());
-            }, 500);
-          }
-          setTimeout(() => {
-            this.isMoving = false;
-          }, 500);
-        });
+        this.move(movements, car);
       }
+    });
+  }
+
+  public createMovements(distance: number, car: Car) {
+    let carMovements = car.Movements();
+    let movements = [];
+    let lastMovement;
+
+    for (const movement of carMovements) {
+      if (movement.metersDistance < distance) {
+        movements.push(movement);
+        distance -= movement.metersDistance;
+        lastMovement = movement;
+
+      } else if ((movement.metersDistance >= distance && distance > 0)) {
+        lastMovement = {
+          id: movement.id,
+          metersDistance: distance,
+          vwDistance: lastMovement?.vwDistance !== movement.vwDistance ? distance * movement.vwDistance / movement.metersDistance : movement.vwDistance,
+          vhDistance: lastMovement?.vhDistance !== movement.vhDistance ? distance * movement.vhDistance / movement.metersDistance : movement.vhDistance,
+          angle: movement.angle
+        };
+
+        movements.push(lastMovement);
+        break;
+      }
+
+      car.deleteMovement();
+    }
+
+    return movements;
+  }
+
+  public move(movements: TrackFragment[], car: Car) {
+    movements.forEach(movement => {
+      if (movement.angle != 0) {
+        setTimeout(() => {
+          this.isMoving = true;
+          car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), car.degPosition());
+        }, 500);
+        setTimeout(() => {
+          this.isMoving = false;
+          car.modifyPosition(car.xPosition(), car.yPosition(), car.degPosition());
+        }, 500)
+        setTimeout(() => {
+          this.isMoving = true;
+          car.modifyPosition(car.xPosition(), car.yPosition(), movement.angle.toString());
+        }, 500);
+      } else {
+        setTimeout(() => {
+          this.isMoving = true;
+          car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), movement.angle.toString());
+        }, 500);
+      }
+      setTimeout(() => {
+        this.isMoving = false;
+        car.modifyPosition(car.xPosition(), car.yPosition(), car.degPosition());
+      }, 500);
     });
   }
 
