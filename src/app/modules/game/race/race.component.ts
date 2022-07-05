@@ -2,9 +2,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Car } from '../../shared/models/car';
-import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3, TrackFragment } from '../../shared/models/trackFragment';
+import { TrackFragment } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
-import { GameAutenticationService } from '../../shared/services/game.service';
+import { GameService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
 
 @Component({
@@ -37,6 +37,7 @@ import { GameSocket } from '../../shared/services/socket.service';
     ])
   ]
 })
+
 export class RaceComponent implements OnInit {
 
   agregateID: string;
@@ -45,10 +46,17 @@ export class RaceComponent implements OnInit {
   isMoving: boolean = false;
   cars: Car[] = [];
 
+  players = [
+    {jugadorId: 1, nombre:'Superman', puntos:4},
+    {jugadorId: 2, nombre:'Batman', puntos:3},
+    {jugadorId: 5, nombre:'BatGirl', puntos:2},
+    {jugadorId: 3, nombre:'Robin', puntos:4},
+    {jugadorId: 4, nombre:'Flash', puntos:5}
+];  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private service: GameAutenticationService,
+    private service: GameService,
     private socket: GameSocket,
     private displayService: DisplayService
   ) {
@@ -186,7 +194,6 @@ export class RaceComponent implements OnInit {
       }, 500);
     });
   }
-
 }
 
 const data = [

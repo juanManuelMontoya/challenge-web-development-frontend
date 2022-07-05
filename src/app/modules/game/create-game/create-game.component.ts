@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../shared/services/authentication.service';
-import { GameAutenticationService } from '../../shared/services/game.service';
+import { GameService } from '../../shared/services/game.service';
 import { Car } from '../../shared/models/car';
 import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3 } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
@@ -22,7 +22,7 @@ export class CreateGameComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthenticationService,
-    private service: GameAutenticationService,
+    private service: GameService,
     private formGroup: FormBuilder,
     private displayService: DisplayService
   ) {
@@ -57,7 +57,7 @@ export class CreateGameComponent implements OnInit {
     game.jugadores = Object.fromEntries(jugadores);
 
     this.service.createGame(game).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         let data = JSON.parse(res);
         let cars: Car[] = [
           new Car(data[0].carroId, 'car1', data[0].conductor[Object.keys(data[0].conductor)[0]], trackFragmentCar1),
@@ -69,7 +69,7 @@ export class CreateGameComponent implements OnInit {
         this.displayService.setRaceLengthSubject(game.kilometros * 1000);
         this.raceCreated.emit({isCreated: true, gameId: data[0].juegoId});
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error(error);
       }
     });

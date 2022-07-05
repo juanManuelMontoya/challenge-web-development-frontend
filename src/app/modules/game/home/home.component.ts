@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Car } from '../../shared/models/car';
 import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3 } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
-import { GameAutenticationService } from '../../shared/services/game.service';
+import { GameService } from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   raceCreated: boolean = false;
   gameId!: string;
 
-  constructor(private displayService: DisplayService, private router: Router, private service: GameAutenticationService) { 
+  constructor(private displayService: DisplayService, private router: Router, private service: GameService) { 
     
   }
 
