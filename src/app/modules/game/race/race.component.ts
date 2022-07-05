@@ -106,6 +106,7 @@ export class RaceComponent implements OnInit {
 
   start() {
     this.service.messages.subscribe({
+<<<<<<< HEAD
       next: (res) => {
         console.log('Type' + res.type);
         if(res.type.includes('KilometrajeCambiado')){
@@ -117,6 +118,16 @@ export class RaceComponent implements OnInit {
           this.puesto2 = res.podio.segundoLugar;
           this.puesto3 = res.podio.tercerLugar;
           this.modalOpen();
+=======
+      next: (msg) => {
+        //console.log('Response recieved from websocket: ' + msg);
+        if (msg.type.includes('KilometrajeCambiado')) {
+          let distance = msg.distancia!;
+          let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
+          let movements: TrackFragment[] = this.createMovements(distance, car);
+  
+          this.move(movements, car);
+>>>>>>> 642fc8ed918c52a177b97364b776806d9ba9820a
         }
       },
       error: (error) => {
