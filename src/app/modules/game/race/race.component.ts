@@ -46,12 +46,14 @@ export class RaceComponent implements OnInit {
   isMoving: boolean = false;
   cars: Car[] = [];
 
+  //animation variable
+  position:string = 'left'/*  */
+  leftPosition:string = '13'//'1800px'
+  animationTime:string = '1000ms'
+  kilometers:number = 2000;
+  // data example podio
   players = [
-    {jugadorId: 1, nombre:'Superman', puntos:4},
-    {jugadorId: 2, nombre:'Batman', puntos:3},
-    {jugadorId: 5, nombre:'BatGirl', puntos:2},
-    {jugadorId: 3, nombre:'Robin', puntos:4},
-    {jugadorId: 4, nombre:'Flash', puntos:5}
+    {jugadorId: 1, nombre:'Superman', puntos:4}
 ];  
   constructor(
     private router: Router,
@@ -193,6 +195,12 @@ export class RaceComponent implements OnInit {
         car.modifyPosition(car.xPosition(), car.yPosition(), car.degPosition());
       }, 500);
     });
+  }
+
+  calculateDistance(distance:number){
+    console.log((distance*80)/this.kilometers);
+    
+    return (distance*80)/this.kilometers;
   }
 }
 
