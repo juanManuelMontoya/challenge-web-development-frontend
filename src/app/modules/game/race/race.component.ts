@@ -1,6 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Car } from '../../shared/models/car';
+import { trackFragmentCar1, trackFragmentCar2, trackFragmentCar3 } from '../../shared/models/trackFragment';
 import { DisplayService } from '../../shared/services/display.service';
 import { GameService } from '../../shared/services/game.service';
 import { GameSocket } from '../../shared/services/socket.service';
@@ -9,42 +11,19 @@ import { GameSocket } from '../../shared/services/socket.service';
   selector: 'app-race',
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.scss'],
-  animations:[
-    trigger('car1',[
-      state('car1', 
-          style({
-            transform:'translateX({{left}}vw)'
-          }), {params: {left: '60'}}  // parameter passed in the template
-      ),
-      state('car2', 
-        style({
-            transform:'translateX({{left}}vw)'
-          }), {params: {left: '60'}}  // parameter passed in the template
-      ),
-      state('car3', 
-          style({
-            transform:'translateX({{left}}vw)'
-          }), {params: {left: '60'}}  // parameter passed in the template
-      ),
-      transition('car1 => car2', [
-          animate('{{time}}')  // parameter passed in the template
-      ]),
-      transition('car1 => car3', [
-          animate('{{time}}')  // parameter passed in the template
-      ]),
-      transition('car2 => car1', [
-        animate('{{time}}')  // parameter passed in the template
-    ]),
-    transition('car2 => car3', [
-        animate('{{time}}')  // parameter passed in the template
-    ]),
-    transition('ca3 => car1', [
-        animate('{{time}}')  // parameter passed in the template
-    ]),
-    transition('car3 => car2', [
-        animate('{{time}}')  // parameter passed in the template
+  animations: [
+    trigger('race', [
+      state('move', style({
+        transform: 'translateX({{ x }}vw)'
+      }), {
+        params: {
+          x: '30',
+        }
+      }),
+      transition('* <=> move', [
+        animate('2s')
+      ])
     ])
-  ])
   ]
 })
 
@@ -52,9 +31,13 @@ export class RaceComponent implements OnInit {
 
   agregateID: string;
   routestate: any;
-  player1 : string = "";
-  player2 : string = "";
-  player3 : string = "";
+  totalDistance: number = 2000;
+  isMoving: boolean = false;
+  cars: Car[] = [
+    new Car('be337f95-dbb6-4adb-9079-de56c6eccbd1', 'car1', "Felipe3", trackFragmentCar1),
+    new Car('f1999cbe-573e-4694-a62d-9680aadaa784', 'car2', "Andrés3", trackFragmentCar2),
+    new Car('afd3e706-7ee6-4f1a-999b-0528714d041e', 'car3', "Juan3", trackFragmentCar3)
+  ];
 
   //Modal Controlers
   showModalBox : boolean = false; 
@@ -85,7 +68,6 @@ export class RaceComponent implements OnInit {
     }*/
 
     this.agregateID = this.route.snapshot.params['id'];
-    console.log(this.agregateID);
 
     this.service.setUrl(this.agregateID);
     this.service.messages.subscribe({
@@ -101,16 +83,88 @@ export class RaceComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
+
+    let distance = this.totalDistance / 9;
+    this.changeMovementsDistance(distance);
+    this.start();
   }
 
+  getDriverByCarTag(carTag: string) {
+    let car = this.cars.filter(curent => curent.CarTag() == carTag)[0];
+    return car.Driver();
+  }
+
+  changeMovementsDistance(distance: number) {
+    this.cars.forEach(car => car.changeTrackFragmentsDistance(distance));
+  }
+
+  getXPositionByCarTag(carTag: string) {
+    let car = this.cars.filter(curent => curent.CarTag() == carTag)[0];
+    return car.xPosition();
+  }
+
+  start() {
+    data.forEach(msg => {
+      if (msg.type.includes('KilometrajeCambiado')) {
+        let distance = msg.distancia!;
+        let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
+        let carMovements = car.Movements();
+        let movements = [];
+
+        for (const movement of carMovements) {
+          if (movement.metersDistance < distance) {
+            movements.push(movement);
+            distance -= movement.metersDistance;
+          } else if ((movement.metersDistance >= distance && distance > 0)) {
+            movements.push({
+              id: movement.id,
+              metersDistance: distance,
+              vwDistance: distance * movement.vwDistance / movement.metersDistance,
+              vhDistance: distance * movement.vhDistance / movement.metersDistance,
+              angle: movement.angle
+            });
+
+            break;
+          }
+          car.deleteMovement();
+        }
+        movements.forEach(movement => {
+          if (movement.angle != 0) {
+            setTimeout(() => {
+              this.isMoving = true;
+              car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), car.degPosition());
+            }, 500);
+            setTimeout(() => {
+              this.isMoving = false;
+            }, 500);
+            setTimeout(() => {
+              this.isMoving = true;
+              car.modifyPosition(car.xPosition(), car.yPosition(), movement.angle.toString());
+            }, 500);
+          } else {
+            setTimeout(() => {
+              this.isMoving = true;
+              car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), movement.angle.toString());
+            }, 500);
+          }
+          setTimeout(() => {
+            this.isMoving = false;
+          }, 500);
+        });
+      }
+    });
+  }
 
   move(car:string,distance:string){
+
+      let currentCar = this.cars.filter(curent => curent.CarTag() == car)[0];
 
       this.animationTime.slice(-2) == 'ms' ? null : this.animationTime = this.animationTime + 'ms';
       let distanceNum = parseInt(this.leftPosition);
       distanceNum = distance != null ? distanceNum + this.calculateDistance(parseInt(distance)) : distance;
       this.leftPosition = distanceNum.toString() ;
-      this.position = car;
+      currentCar.modifyPosition(this.leftPosition,"","");
+     // this.position = car;
       console.log(car);
       
   }

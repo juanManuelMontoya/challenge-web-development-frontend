@@ -1,30 +1,34 @@
 <app-header></app-header>
 <div class="speedway">
-    <div [@car1]="{value:position, params:{time:animationTime, left:leftPosition}}"  class="car car1">
-        <p class="player-name text-blue">Jugador 1</p>
+    <div [@race]="{value:'move', params:{x: getXPositionByCarTag('car1')}}"
+        class="car car1">
+        <p class="player-name text-blue">
+            {{ getDriverByCarTag('car1') }}
+        </p>
     </div>
-    <div [@car2]="{value:position, params:{time:animationTime, left:leftPosition}}" class="car car2"> 
-        <p class="player-name text-red">Jugador 2</p>
+    <div [@race]="{value:'move', params:{x: getXPositionByCarTag('car2')}}"
+        class="car car2">
+        <p class="player-name text-red">
+            {{ getDriverByCarTag('car2') }}
+        </p>
     </div>
-    <div [@car3]="{value:position, params:{time:animationTime, left:leftPosition}}"  class="car car3">
-        <p class="player-name text-green">Jugador 3</p>
+    <div [@race]="{value:'move', params:{x: getXPositionByCarTag('car3')}}"
+        class="car car3">
+        <p class="player-name text-green">
+            {{ getDriverByCarTag('car3') }}
+        </p>
     </div>
     <button (click)="move(car.value,distance.value)">move</button>
     <input style="width:100px ;" type="text" class="input" #car id="car">
     <input style="width:100px ;" type="text" class="input" #distance id="distance">
-   <!-- Button trigger modal 
-    <button type="button" class="btn btn-primary" (click)="modalOpen()">
-        Resultados
-    </button>
-
     
-    <input style="width:100px ;" type="text" class="input" #position id="position">
+    <!--<input style="width:100px ;" type="text" class="input" #position id="position">
     <input style="width:100px ;" type="text" class="input" #distance id="distance">
     <input style="width:100px ;" type="text" class="input" #ejey id="ejey">
     <input style="width:100px ;" type="text" class="input" #rotate id="rotate">
-    <input style="width:100px ;" type="text" class="input" #porcentaje id="porcentaje">-->
+    <input style="width:100px ;" type="text" class="input" #porcentaje id="porcentaje">
     
-    <!-- Modal -->
+     Modal -->
     <div *ngIf="showModalBox" class="" id="exampleModal"  aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
