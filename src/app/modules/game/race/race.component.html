@@ -1,77 +1,21 @@
 <app-header></app-header>
 <div class="speedway">
-    <div [@race]="{value: position, params:{x: getXPositionByCarTag('car1')}}"
+    <div [@race]="{value: isMoving ? 'move': 'notMove', params:{x: getXPositionByCarTag('car1'), y: getYPositionByCarTag('car1'), deg: getDegPositionByCarTag('car1')}}"
         class="car car1">
         <p class="player-name text-blue">
             {{ getDriverByCarTag('car1') }}
         </p>
     </div>
-    <div [@race]="{value: position, params:{x: getXPositionByCarTag('car2')}}"
+    <div [@race]="{value: isMoving ? 'move': 'notMove', params:{x: getXPositionByCarTag('car2'), y: getYPositionByCarTag('car2'), deg: getDegPositionByCarTag('car2')}}"
         class="car car2">
         <p class="player-name text-red">
             {{ getDriverByCarTag('car2') }}
         </p>
     </div>
-    <div [@race]="{value: position, params:{x: getXPositionByCarTag('car3')}}"
+    <div [@race]="{value: isMoving ? 'move': 'notMove', params:{x: getXPositionByCarTag('car3'), y: getYPositionByCarTag('car3'), deg: getDegPositionByCarTag('car3')}}"
         class="car car3">
         <p class="player-name text-green">
             {{ getDriverByCarTag('car3') }}
         </p>
     </div>
-    
-    <button type="button" class="btn btn-primary" (click)="modalOpen()">
-        Resultados
-    </button>
-      
-    <!--
-    <button (click)="move(car.value,distance.value)">move</button>
-    <input style="width:100px ;" type="text" class="input" #car id="car">
-    <input style="width:100px ;" type="text" class="input" #distance id="distance">
-    
-     Modal -->
-    <div *ngIf="showModalBox" class="" id="exampleModal"  aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 *ngIf="!showHistory" class="modal-title" id="exampleModalLabel">Podium</h5>
-            <h5 *ngIf="showHistory" class="modal-title" id="exampleModalLabel">Historial de usuarios</h5>
-            <button type="button" class="btn-close" (click)="modalOpen()" aria-label="Close"></button>
-            </div>
-            <div *ngIf="!showHistory" class="modal-body">
-                <div class="row podio" style="text-align: center;">
-                    <div class="ms-auto winners-name" style="margin-top: 5vh;"><label style="margin-left: 4vw;" for="">juan</label></div>
-
-                    <div class="winners-name"><label for="">juan</label></div>
-
-                    <div class="winners-name" style="margin-top: 7vh;"><label style="margin-right: 5vw;" for="">juan</label></div>
-                </div>
-                
-                <!--<img src="../../../../assets/img/podio.png" alt="" class="podio border-b">-->
-            </div>
-            <div *ngIf="showHistory" class="modal-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">JugadorID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Puntos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let hero of players">
-                        <th scope="row">{{hero.jugadorId}}</th>
-                        <td>{{hero.nombre}}</td>
-                        <td>{{hero.puntos}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modalOpen()">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="hideHistorial()">Historial de puntajes</button>
-            </div>
-        </div>
-        </div>
-    </div>
-  
 </div>

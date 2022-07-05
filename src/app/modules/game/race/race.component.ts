@@ -14,14 +14,25 @@ import { GameSocket } from '../../shared/services/socket.service';
   animations: [
     trigger('race', [
       state('move', style({
-        transform: 'translateX({{ x }}vw)'
+        transform: 'translateX({{ x }}vw) translateY({{ y }}vh) rotate({{ deg }}deg)'
       }), {
         params: {
           x: '30',
+          y: '0',
+          deg: '0'
         }
       }),
-      transition('* <=> move', [
-        animate('2s')
+      state('notMove', style({
+        transform: 'translateX({{ x }}vw) translateY({{ y }}vh) rotate({{ deg }}deg)'
+      }), {
+        params: {
+          x: '30',
+          y: '0',
+          deg: '0'
+        }
+      }),
+      transition('move => notMove', [
+        animate('30s 30s')
       ])
     ])
   ]
@@ -34,10 +45,6 @@ export class RaceComponent implements OnInit {
   totalDistance!: number;
   isMoving: boolean = false;
   cars: Car[] = [];
-
-  //Modal Controlers
-  showModalBox : boolean = false; 
-  showHistory : boolean = false;
 
   //animation variable
   position:string = 'left'/*  */
@@ -56,13 +63,6 @@ export class RaceComponent implements OnInit {
     private displayService: DisplayService
   ) {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
-
-    this.getHistoryData();
-    
-    /*if(this.router.getCurrentNavigation().extras.state){
-      this.routestate = this.router.getCurrentNavigation().extras.state;
-      this.agregateID =  this.routeState.id ? JSON.parse(this.routeState.id) : '';;
-    }*/
 
     this.agregateID = this.route.snapshot.params['id'];
 
@@ -111,6 +111,16 @@ export class RaceComponent implements OnInit {
     return car.xPosition();
   }
 
+  getYPositionByCarTag(carTag: string) {
+    let car = this.cars.filter(curent => curent.CarTag() == carTag)[0];
+    return car.yPosition();
+  }
+
+  getDegPositionByCarTag(carTag: string) {
+    let car = this.cars.filter(curent => curent.CarTag() == carTag)[0];
+    return car.degPosition();
+  }
+
   start() {
     this.service.messages.subscribe({
       next: (msg) => {
@@ -118,46 +128,15 @@ export class RaceComponent implements OnInit {
         if (msg.type.includes('KilometrajeCambiado')) {
           let distance = msg.distancia!;
           let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
-          //let movements: TrackFragment[] = this.createMovements(distance, car);
-
-          //this.moveT(movements, car);
-          this.move(car.CarTag(),distance.toString());
+          let movements: TrackFragment[] = this.createMovements(distance, car);
+  
+          this.move(movements, car);
         }
       },
       error: (error) => {
         console.log(error);
       }
     });
-  }
-
-  move(car:string,distance:string){
-
-      let currentCar = this.cars.filter(curent => curent.CarTag() == car)[0];
-
-      this.animationTime.slice(-2) == 'ms' ? null : this.animationTime = this.animationTime + 'ms';
-      let distanceNum = parseInt(this.leftPosition);
-      distanceNum = distance != null ? distanceNum + this.calculateDistance(parseInt(distance)) : distance;
-      this.leftPosition = distanceNum.toString() ;
-      currentCar.modifyPosition(this.leftPosition,"","");
-      this.position = 'move';
-      console.log(car);
-      
-  }
-
-  modalOpen() : void {
-    this.showModalBox == false ? this.showModalBox = true : this.showModalBox = false;
-  }
-
-  hideHistorial() : void {
-    this.showHistory = this.showHistory == false ? true : false;
-  }
-
-  getHistoryData(): void {
-    this.service.getScore().subscribe( res => this.players = res, error => console.log(error) );
-
-    /*this.players.sort(function (x,y){
-      return x.puntos > y.puntos ? 1: -1;
-    });*/
   }
 
   public createMovements(distance: number, car: Car) {
@@ -190,7 +169,7 @@ export class RaceComponent implements OnInit {
     return movements;
   }
 
-  public moveT(movements: TrackFragment[], car: Car) {
+  public move(movements: TrackFragment[], car: Car) {
     movements.forEach(movement => {
       if (movement.angle != 0) {
         setTimeout(() => {
