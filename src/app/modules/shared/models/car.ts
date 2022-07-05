@@ -3,11 +3,11 @@ import { TrackFragment } from "./trackFragment"
 export class Car {
     private carId: string;
     private carTag: string;
-    private driver: string;
+    private driver: Map<string, string>;
     private movements: TrackFragment[];
     private position: Position;
 
-    constructor(carId: string, carTag: string, driver: string, movements: TrackFragment[]) {
+    constructor(carId: string, carTag: string, driver: Map<string, string>, movements: TrackFragment[]) {
         this.carId = carId;
         this.carTag = carTag;
         this.driver = driver;
@@ -28,7 +28,11 @@ export class Car {
     }
 
     public Driver(): string {
-        return this.driver;
+        return Object.values(this.driver)[0];
+    }
+
+    public driverById(driverId: string): string {
+        return this.driver.get(driverId)!;
     }
 
     public Movements(): TrackFragment[] {

@@ -19,23 +19,19 @@
         </p>
     </div>
     
-    <button type="button" class="btn btn-primary" (click)="modalOpen()">
+    <button class="btn btn-primary" (click)="modalOpen()">
         Resultados
     </button>
       
-    <!--
-    <button (click)="move(car.value,distance.value)">move</button>
-    <input style="width:100px ;" type="text" class="input" #car id="car">
-    <input style="width:100px ;" type="text" class="input" #distance id="distance">
-    
-     Modal -->
+      
+    <!--Modal -->
     <div *ngIf="showModalBox" class="" id="exampleModal"  aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <h5 *ngIf="!showHistory" class="modal-title" id="exampleModalLabel">Podium</h5>
             <h5 *ngIf="showHistory" class="modal-title" id="exampleModalLabel">Historial de usuarios</h5>
-            <button type="button" class="btn-close" (click)="modalOpen()" aria-label="Close"></button>
+            <!--<button type="button" class="btn-close" (click)="modalOpen()" aria-label="Close"></button>-->
             </div>
             <div *ngIf="!showHistory" class="modal-body">
                 <div class="row podio" style="text-align: center;">
@@ -58,20 +54,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let hero of players">
-                        <th scope="row">{{hero.jugadorId}}</th>
-                        <td>{{hero.nombre}}</td>
-                        <td>{{hero.puntos}}</td>
+                        <tr *ngFor="let player of players">
+                        <th scope="row">{{player.jugadorId}}</th>
+                        <td>{{player.nombre}}</td>
+                        <td>{{player.puntos}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modalOpen()">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="hideHistorial()">Historial de puntajes</button>
+            <button type="button" class="btn btn-secondary" (click)="returnHome()">Crear nuevo juego</button>
+            <button type="button" class="btn btn-primary" (click)="hideHistorial()">
+                <label *ngIf="showHistory" for="">Historial de puntajes</label>
+                <label *ngIf="!showHistory" for="">Ver podio</label>
+            </button>
             </div>
         </div>
         </div>
     </div>
-  
 </div>
