@@ -114,7 +114,7 @@ export class RaceComponent implements OnInit {
   start() {
     this.service.messages.subscribe({
       next: (msg) => {
-        console.log('Response recieved from websocket: ' + msg);
+        //console.log('Response recieved from websocket: ' + msg);
         if (msg.type.includes('KilometrajeCambiado')) {
           let distance = msg.distancia!;
           let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
