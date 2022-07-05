@@ -73,20 +73,10 @@ export class RaceComponent implements OnInit {
   ) {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
 
-    let cars = localStorage.getItem('car')
-
     this.getHistoryData();
-    
-    /*if(this.router.getCurrentNavigation().extras.state){
-      this.routestate = this.router.getCurrentNavigation().extras.state;
-      this.agregateID =  this.routeState.id ? JSON.parse(this.routeState.id) : '';;
-    }*/
-
     this.agregateID = this.route.snapshot.params['id'];
-
     this.service.setUrl(this.agregateID);
-    
-
+  
   }
 
   ngOnInit(): void {
@@ -154,10 +144,15 @@ export class RaceComponent implements OnInit {
           let car = this.cars.filter(current => current.CarId() == res.aggregateRootId)[0];
           this.move(car.CarTag(),distance);
         }else if(res.type.includes('JuegoFinalizado')){
+
           
-          this.puesto1 = res.podio.primerLugar;
-          this.puesto2 = res.podio.segundoLugar;
-          this.puesto3 = res.podio.tercerLugar;
+          this.puesto1 = res.podio.primerLugar.nombre.value; //let playerId = res.podio.primerLugar.jugadorId.uuid;  this.cars.filter(x => x.driverById(playerId) != null).map(x => x.driverById(playerId))[0];
+          
+           
+          this.puesto2 = res.podio.segundoLugar.nombre.value; // playerId = res.podio.segundoLugar.jugadorId.uuid;this.cars.filter(x => x.driverById(playerId) != null).map(x => x.driverById(playerId))[0];;
+          
+          
+          this.puesto3 =  res.podio.tercerLugar.nombre.value; // playerId = res.podio.tercerLugar.jugadorId.uuid;  this.cars.filter(x => x.driverById(playerId) != null).map(x => x.driverById(playerId))[0];;
           this.modalOpen();
         }
       },

@@ -35,11 +35,11 @@
             </div>
             <div *ngIf="!showHistory" class="modal-body">
                 <div class="row podio" style="text-align: center;">
-                    <div class="ms-auto winners-name" style="margin-top: 5vh;"><label style="margin-left: 4vw;" for="">juan</label></div>
+                    <div class="ms-auto winners-name" style="margin-top: 5vh;"><label style="margin-left: 4vw;" for="">{{ puesto2 }}</label></div>
 
-                    <div class="winners-name"><label for="">juan</label></div>
+                    <div class="winners-name"><label for="">{{ puesto1 }}</label></div>
 
-                    <div class="winners-name" style="margin-top: 7vh;"><label style="margin-right: 5vw;" for="">juan</label></div>
+                    <div class="winners-name" style="margin-top: 7vh;"><label style="margin-right: 5vw;" for="">{{ puesto3 }}</label></div>
                 </div>
                 
                 <!--<img src="../../../../assets/img/podio.png" alt="" class="podio border-b">-->
@@ -65,8 +65,8 @@
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="returnHome()">Crear nuevo juego</button>
             <button type="button" class="btn btn-primary" (click)="hideHistorial()">
-                <label *ngIf="showHistory" for="">Historial de puntajes</label>
-                <label *ngIf="!showHistory" for="">Ver podio</label>
+                <label *ngIf="!showHistory" for="">Historial de puntajes</label>
+                <label *ngIf="showHistory" for="">Ver podio</label>
             </button>
             </div>
         </div>
