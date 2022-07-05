@@ -13,7 +13,7 @@ export interface Message {
   providedIn: 'root'
 })
 
-export class GameAutenticationService {
+export class GameService {
     private url: string;
 
     public messages!: Subject<any>;
@@ -31,7 +31,7 @@ export class GameAutenticationService {
       return this.http.post(`${this.url}iniciarJuego`, data, {responseType: 'text'});
     }
 
-    getScore(){
+    getScore():Observable<any>{
         return this.http.get(`${this.url}historialGanadores`);
     }
 
