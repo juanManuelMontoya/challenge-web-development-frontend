@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
       juegoId: this.gameId
     }
 
+    console.log(game);
+    
     this.service.startGame(game).subscribe({
       next: (res) => {
         this.router.navigate(['game/race', {id : res}]);

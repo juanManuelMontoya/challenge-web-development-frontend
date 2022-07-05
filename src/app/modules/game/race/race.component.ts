@@ -31,7 +31,7 @@ export class RaceComponent implements OnInit {
 
   agregateID: string;
   routestate: any;
-  totalDistance: number = 2000;
+  totalDistance!: number;
   isMoving: boolean = false;
   cars: Car[] = [];
 
@@ -43,7 +43,6 @@ export class RaceComponent implements OnInit {
   position:string = 'left'/*  */
   leftPosition:string = '13'//'1800px'
   animationTime:string = '1000ms'
-  kilometers:number = 2000;
   // data example podio
   players = [
     {jugadorId: 1, nombre:'Superman', puntos:4}
@@ -101,6 +100,8 @@ export class RaceComponent implements OnInit {
       }
     });
 
+    console.log(this.cars);
+    
     setTimeout(() => {
       this.start();
     }, 500);
@@ -125,7 +126,9 @@ export class RaceComponent implements OnInit {
       next: (res) => {
         console.log('Type' + res.type);
         if(res.type.includes('KilometrajeCambiado')){
-          let distance = res.distance;
+          let distance = res.distancia;
+          console.log(res.aggregateRootId);
+          
           let car = this.cars.filter(current => current.CarId() == res.aggregateRootId)[0];
           this.move(car.CarTag(),distance.toString());
         }else if(res.type.includes('JuegoFinalizado')){
@@ -176,9 +179,9 @@ export class RaceComponent implements OnInit {
   }
 
   calculateDistance(distance:number){
-    console.log((distance*80)/this.kilometers);
+    console.log((distance*80)/this.totalDistance);
     
-    return (distance*80)/this.kilometers;
+    return (distance*80)/this.totalDistance;
   }
   public createMovements(distance: number, car: Car) {
     let carMovements = car.Movements();

@@ -42,7 +42,7 @@ export class CreateGameComponent implements OnInit {
     /* TODO document why this method 'ngOnInit' is empty */ 
   }
 
-  create() {
+  create() {    
     let game: Game = {
       kilometros: this.gameForm.get("kilometers")?.value,
       juegoId: this.gameForm.get("gameId")?.value,
@@ -67,6 +67,8 @@ export class CreateGameComponent implements OnInit {
 
         this.displayService.setCarSubject(cars);
         this.displayService.setRaceLengthSubject(game.kilometros * 1000);
+        
+        console.log(res);
         this.raceCreated.emit({isCreated: true, gameId: data[0].juegoId});
       },
       error: (error) => {
