@@ -57,9 +57,9 @@ export class RaceComponent implements OnInit {
     private displayService: DisplayService
   ) {
     localStorage.getItem('user') !== null ? this.displayService.setBackgroundSubject(false) : this.router.navigate(['login']);
-
+    
+    this.getHistoryData();
     this.agregateID = this.route.snapshot.params['id'];
-
     this.service.setUrl(this.agregateID);
   }
 
