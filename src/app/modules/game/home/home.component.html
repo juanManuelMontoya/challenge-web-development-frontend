@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="row position-absolute w-100 h-100 m-0 il-1">
+    <div id="game-form" class="col-sm-4 align-self-center d-flex h-100">
+      <div id="game-form-card" class="card text-white">
+        <app-create-game (raceCreated)="setRace($event)" [readyToRace]="raceCreated"></app-create-game>
+      </div>
+    </div>
+    <div class="col-sm-8 p-0 d-flex align-items-center justify-content-center">
+        <div *ngIf="raceCreated" id="start-race" class="position-absolute i-1">
+            <div id="track-1">
+                <button id="start-button-1" (click)="start('race1')">
+                    <em id="start-icon" class="fa fa-play-circle fa-10x"></em>
+                    <h2 class="bg-green">
+                        Start
+                    </h2>
+                </button>
+            </div>
+            <div id="track-2">
+                <button id="start-button-2" (click)="start('race2')">
+                    <em id="start-icon" class="fa fa-play-circle fa-10x"></em>
+                    <h2 class="bg-green">
+                        Start
+                    </h2>
+                </button>
+            </div>
+        </div>
+        <div id="game-carousel" class="carousel slide w-100 h-100" data-bs-ride="carousel">
+            <div class="carousel-inner w-100 h-100">
+                <div class="carousel-item active w-100 h-100">
+                    <div id="slide-1" class="w-100 h-100 d-block"></div>
+                </div>
+                <div class="carousel-item w-100 h-100">
+                    <div id="slide-2" class="w-100 h-100 d-block"></div>
+                </div>
+                <div class="carousel-item w-100 h-100">
+                    <div id="slide-3" class="w-100 h-100 d-block"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

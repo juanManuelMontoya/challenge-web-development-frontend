@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ResetAccountComponent } from './auth/reset-account/reset-account.component';
-import { HomeComponent } from './shared/pages/home/home.component';
+import { RaceComponent } from './modules/game/race/race.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'restAccount', component: ResetAccountComponent},
-  {path: 'restAccount', component: ResetAccountComponent},
-  {path: 'home', component: HomeComponent, data:{requiresLogin: true}},
-  {path: '**', pathMatch: 'full', redirectTo:'login'}
+  {
+    path: '',
+    loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
+  },
+  {
+    path: 'game', 
+    loadChildren: () => import('./modules/game/game.module').then(m => m.GameModule)
+  },
+  {
+    path: '**', 
+    pathMatch: 'full', 
+    redirectTo:'login'
+  }
 ];
 
 @NgModule({

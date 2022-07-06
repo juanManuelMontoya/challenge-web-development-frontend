@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-6"></div>
+    <div class="col-6">
+        <div class="content position-absolute d-flex align-content-center justify-content-center col-6">
+            <div class="card" id="register-card">
+                <form class="text-center" action="index.html">
+                    <img class="avatar_image" src="../../../assets/img/avatar_car.jpg" alt="login image" width="150">
+                    <div class="input-div one">
+                        <div class="i">
+                            <em class="fas fa-user"></em>
+                        </div>
+                        <div class="div">
+                            <h5>Email</h5>
+                            <input type="text" class="input rounded-pill" name="email" #userEmail required
+                                id="userEmail">
+                        </div>
+                    </div>
+                    <div class="input-div pass">
+                        <div class="i">
+                            <em class="fas fa-lock"></em>
+                        </div>
+                        <div class="div">
+                            <h5>Contraseña</h5>
+                            <input type="password" class="input rounded-pill" id="userPassword" name="password"
+                                #userPassword required>
+                        </div>
+                    </div>
+                    <input id="register-btn" class="btn" value="Registrarse"
+                        (click)="SignUp(userEmail.value, userPassword.value)">
+                    <div class="d-flex">
+                        <a class="have-account cursor-pointer" routerLink="/login">¿Ya tienes una cuenta? Iniciar sesión</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

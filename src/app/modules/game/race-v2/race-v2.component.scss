@@ -1,0 +1,52 @@
+.speedway {
+    background: url("../../../../assets/img/pista2.png") no-repeat 0 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+.car {
+    background-repeat: no-repeat;
+    position: static;
+    height: 7%;
+    width: 5%;
+    left: 13vw;
+}
+
+.car1 {
+    background: url("../../../../assets/img/buggati.png") no-repeat 0 0;
+    top: 63vh;
+    position: fixed;
+    background-size: 100% 100%;
+    //animation: car1-run 20s normal;
+}
+
+.car2 {
+    background: url("../../../../assets/img/F1.png") no-repeat 0 0;
+    top: 47vh;
+    position: fixed;
+    background-size: 100% 100%;
+    //animation: car2-run 20s normal;
+}
+
+.car3 {
+    background: url("../../../../assets/img/porsche.png") no-repeat 0 0;
+    top: 32vh;
+    position: fixed;
+    background-size: 100% 100%;
+    //animation: car3-run 20s normal;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-blue {
+    color: blue;
+}
+
+.text-green {
+    color: green;
+}

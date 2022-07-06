@@ -1,0 +1,40 @@
+.podio {
+    background: url("../../../../assets/img/podio.png") no-repeat 0 0;
+    width: 100%;
+    height: 26vh;
+    background-size: 100% 100%;
+}
+
+.winners-name {
+    width:33%;
+    height: 12%;
+    text-transform: uppercase;
+}
+
+.bottom-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.border-b{
+    border: 1px solid black;
+}
+
+.player-name {
+    position: absolute;
+    transform: translateY(15px) translateX(-51px) rotate(-90deg);
+    text-align: center;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-blue {
+    color: blue;
+}
+
+.text-green {
+    color: green;
+}
