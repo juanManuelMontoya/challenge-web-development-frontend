@@ -6,6 +6,7 @@ export class Car {
     private driver: Map<string, string>;
     private movements: TrackFragment[];
     private position: Position;
+    private lastMovement: TrackFragment;
 
     constructor(carId: string, carTag: string, driver: Map<string, string>, movements: TrackFragment[]) {
         this.carId = carId;
@@ -16,6 +17,14 @@ export class Car {
             x: '0',
             y: '0',
             deg: '0'
+        }
+        this.lastMovement = {
+            id: 0,
+            metersDistance: 0,
+            vwDistance: 0,
+            vhDistance: 0,
+            angle: 0,
+            used: true
         }
     }
 
@@ -36,7 +45,13 @@ export class Car {
     }
 
     public Movements(): TrackFragment[] {
-        return this.movements;
+        return this.movements.sort((move1: TrackFragment, move2: TrackFragment) => {
+            if (move1.id > move2.id) {
+              return 1;
+            }
+      
+            return -1;
+          });
     }
 
     public xPosition(): string {
@@ -51,6 +66,10 @@ export class Car {
         return this.position.deg;
     }
 
+    public LastMovement(): TrackFragment {
+        return this.lastMovement;
+    }
+
     public changeTrackFragmentsDistance(trackFragmentDistance: number): void {
         this.movements.forEach(trackFragment => trackFragment.metersDistance = trackFragmentDistance);
     }
@@ -61,8 +80,19 @@ export class Car {
         this.position.deg = deg;
     }
 
-    public deleteMovement() {
-        this.movements.shift();
+    public addLastMovement(movement: TrackFragment) {
+        this.lastMovement = {
+            id: movement.id,
+            metersDistance: movement.metersDistance,
+            vwDistance: movement.vwDistance,
+            vhDistance: movement.vhDistance,
+            angle: movement.angle,
+            used: true
+        }
+    }
+
+    public setMovements(movements: TrackFragment[]) {
+        this.movements = movements;
     }
 }
 

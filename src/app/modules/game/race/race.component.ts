@@ -22,17 +22,8 @@ import { GameSocket } from '../../shared/services/socket.service';
           deg: '0'
         }
       }),
-      state('notMove', style({
-        transform: 'translateX({{ x }}vw) translateY({{ y }}vh) rotate({{ deg }}deg)'
-      }), {
-        params: {
-          x: '30',
-          y: '0',
-          deg: '0'
-        }
-      }),
-      transition('move => notMove', [
-        animate('30s 30s')
+      transition('move <=> *', [
+        animate('2s')
       ])
     ])
   ]
@@ -43,26 +34,20 @@ export class RaceComponent implements OnInit {
   agregateID: string;
   routestate: any;
   totalDistance!: number;
-  isMoving: boolean = false;
   cars: Car[] = [];
 
-  //animation variable
-  position:string = 'left'/*  */
-  leftPosition:string = '13'//'1800px'
-  animationTime:string = '1000ms'
-
   //Modal Controlers
-  showModalBox : boolean = false; 
-  showHistory : boolean = false;
+  showModalBox: boolean = false;
+  showHistory: boolean = false;
 
   // data example podio
   players = [
-    {jugadorId: 1, nombre:'Superman', puntos:4}
-  ];  
+    { jugadorId: 1, nombre: 'Superman', puntos: 4 }
+  ];
 
-  puesto1 :string = "";
-  puesto2 :string = "";
-  puesto3 :string = "";
+  puesto1: string = "";
+  puesto2: string = "";
+  puesto3: string = "";
 
   constructor(
     private router: Router,
@@ -135,24 +120,18 @@ export class RaceComponent implements OnInit {
 
   start() {
     this.service.messages.subscribe({
-      next: (res) => {
-        console.log('Type' + res.type);
-        if(res.type.includes('KilometrajeCambiado')){
-          let distance = res.distancia;
-          console.log(res.distancia);
-          
-          let car = this.cars.filter(current => current.CarId() == res.aggregateRootId)[0];
-          this.move(car.CarTag(),distance);
-        }else if(res.type.includes('JuegoFinalizado')){
+      next: (msg) => {
+        if (msg.type.includes('KilometrajeCambiado')) {
+          let distance = msg.distancia!;
+          let car = this.cars.filter(current => current.CarId() == msg.aggregateRootId)[0];
+          let movements: TrackFragment[] = this.createMovements(distance, car);
 
-          
-          this.puesto1 = res.podio.primerLugar.nombre.value; //let playerId = res.podio.primerLugar.jugadorId.uuid;  this.cars.filter(x => x.driverById(playerId) != null).map(x => x.driverById(playerId))[0];
-          
-           
-          this.puesto2 = res.podio.segundoLugar.nombre.value; // playerId = res.podio.segundoLugar.jugadorId.uuid;this.cars.filter(x => x.driverById(playerId) != null).map(x => x.driverById(playerId))[0];;
-          
-          
-          this.puesto3 =  res.podio.tercerLugar.nombre.value; // playerId = res.podio.tercerLugar.jugadorId.uuid;  this.cars.filter(x => x.driverById(playerId) != null).map(x => x.driverById(playerId))[0];;
+          this.move(movements, car);
+        } else if (msg.type.includes('JuegoFinalizado')) {
+          this.puesto1 = msg.podio.primerLugar.nombre.value;
+          this.puesto2 = msg.podio.segundoLugar.nombre.value;
+          this.puesto3 = msg.podio.tercerLugar.nombre.value;
+
           this.modalOpen();
         }
       },
@@ -162,7 +141,7 @@ export class RaceComponent implements OnInit {
     });
   }
 
-  move(car:string,distance:number){
+ /* move(car:string,distance:number){
 
       let currentCar = this.cars.filter(curent => curent.CarTag() == car)[0];
 
@@ -175,12 +154,7 @@ export class RaceComponent implements OnInit {
       currentCar.modifyPosition(distanceNum.toString(),"","");
       this.position = 'move';
       console.log(car);
-  }
-
-
-  modalOpen() : void {
-    this.showModalBox == false ? this.showModalBox = true : this.showModalBox = false;
-  }
+  }*/
 
   hideHistorial() : void {
     this.showHistory = this.showHistory == false ? true : false;
@@ -190,77 +164,108 @@ export class RaceComponent implements OnInit {
     this.router.navigate(['game/home']);
   }
 
-  getHistoryData(): void {
-    this.service.getScore().subscribe( res => this.players = res.sort((a : any, b : any) => { 
-      if(a.puntos > b.puntos){
-        return -1;
-      }
-
-      return 1;
-    }), error => console.log(error) );
-  }
-
   public createMovements(distance: number, car: Car) {
     let carMovements = car.Movements();
     let movements = [];
-    let lastMovement;
+    let newMovement: TrackFragment;
+    let newCarMovements: TrackFragment[] = [];
+    let incrementMoveId = false;
 
     for (const movement of carMovements) {
-      if (movement.metersDistance < distance) {
-        movements.push(movement);
-        distance -= movement.metersDistance;
-        lastMovement = movement;
+      if (incrementMoveId) {
+        let updateMovement = {
+          id: movement.id + 1,
+          metersDistance: movement.metersDistance,
+          vwDistance: movement.vwDistance,
+          vhDistance: movement.vhDistance,
+          angle: movement.angle,
+          used: false
+        }
 
-      } else if ((movement.metersDistance >= distance && distance > 0)) {
-        lastMovement = {
-          id: movement.id,
-          metersDistance: distance,
-          vwDistance: lastMovement?.vwDistance !== movement.vwDistance ? distance * movement.vwDistance / movement.metersDistance : movement.vwDistance,
-          vhDistance: lastMovement?.vhDistance !== movement.vhDistance ? distance * movement.vhDistance / movement.metersDistance : movement.vhDistance,
-          angle: movement.angle
-        };
-
-        movements.push(lastMovement);
-        break;
+        newCarMovements.push(updateMovement);
       }
 
-      car.deleteMovement();
+      if (distance >= movement.metersDistance && !movement.used) {
+        distance -= movement.metersDistance;
+        movement.used = true;
+        movements.push(movement);
+
+        car.addLastMovement(movement);
+        newCarMovements.push(movement);
+      } else if (!movement.used && distance > 0) {
+        newMovement = this.partialMove(movement, car, distance);
+        movements.push(newMovement);
+        newCarMovements.push(newMovement);
+
+        let updateMovement = {
+          id: movement.id + 1,
+          metersDistance: Math.abs(movement.metersDistance - distance),
+          vwDistance: movement.vwDistance,
+          vhDistance: movement.vhDistance,
+          angle: movement.angle,
+          used: false
+        }
+
+        newCarMovements.push(updateMovement);
+        incrementMoveId = true;
+        distance = 0;
+      }
     }
 
+    car.setMovements(newCarMovements);
     return movements;
   }
 
-  public moveT(movements: TrackFragment[], car: Car) {
+  public partialMove(movement: TrackFragment, car: Car, distance: number) {
+    let lastMovement: TrackFragment = car.LastMovement();
+    let moveX = false;
+
+    if ((movement.angle == 0 || movement.angle == -180 || movement.angle == -360) &&
+      lastMovement.vwDistance !== movement.vwDistance) {
+      moveX = true;
+    }
+
+    let newMovement: TrackFragment = {
+      id: movement.id,
+      metersDistance: distance,
+      vwDistance: (moveX) ? (distance * movement.vwDistance) / movement.metersDistance : movement.vwDistance,
+      vhDistance: (!moveX) ? (distance * movement.vhDistance) / movement.metersDistance : movement.vhDistance,
+      angle: movement.angle,
+      used: true
+    };
+
+    return newMovement;
+  }
+
+  public move(movements: TrackFragment[], car: Car) {
     movements.forEach(movement => {
       if (movement.angle != 0) {
-        setTimeout(() => {
-          this.isMoving = true;
-          car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), car.degPosition());
-        }, 500);
-        setTimeout(() => {
-          this.isMoving = false;
-          car.modifyPosition(car.xPosition(), car.yPosition(), car.degPosition());
-        }, 500)
-        setTimeout(() => {
-          this.isMoving = true;
-          car.modifyPosition(car.xPosition(), car.yPosition(), movement.angle.toString());
-        }, 500);
+        car.modifyPosition(car.xPosition(), car.yPosition(), movement.angle.toString());
+        car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), car.degPosition());
       } else {
-        setTimeout(() => {
-          this.isMoving = true;
-          car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), movement.angle.toString());
-        }, 500);
+        car.modifyPosition(movement.vwDistance.toString(), movement.vhDistance.toString(), movement.angle.toString());
       }
-      setTimeout(() => {
-        this.isMoving = false;
-        car.modifyPosition(car.xPosition(), car.yPosition(), car.degPosition());
-      }, 500);
     });
   }
 
-  calculateDistance(distance:number){
-    console.log((distance*80)/this.totalDistance);
-    
-    return (distance*80)/this.totalDistance;
+  modalOpen(): void {
+    this.showModalBox = !this.showModalBox ? true : false;
+  }
+
+  getHistoryData(): void {
+    this.service.getScore().subscribe({
+      next: (res) => {
+        this.players = res.sort((a: any, b: any) => {
+          if (a.puntos > b.puntos) {
+            return -1;
+          }
+
+          return 1;
+        })
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 }
