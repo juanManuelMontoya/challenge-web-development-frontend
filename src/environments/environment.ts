@@ -9,7 +9,7 @@ export const environment = {
     measurementId: "G-RLKYEFLY8K"
   },
   game: {
-    url: "http://localhost:8080/"
+    url: "https://challenge-web-development.herokuapp.com/"
   },
   production: false
 };
