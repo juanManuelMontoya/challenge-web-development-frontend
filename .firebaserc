@@ -1,4 +1,8 @@
 {
+  "projects": {
+    "default": "challenge-web-development",
+    "challenge-web-development": "challenge-web-development"
+  },
   "targets": {
     "challenge-desarrollo-web": {
       "hosting": {
@@ -7,8 +11,5 @@
         ]
       }
     }
-  },
-  "projects": {
-    "default": "challenge-desarrollo-web"
   }
 }
