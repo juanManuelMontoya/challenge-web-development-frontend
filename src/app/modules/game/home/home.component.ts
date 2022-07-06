@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     this.gameId = event.gameId;
   }
 
-  start() {
+  start(race: string) {
     let game = {
       juegoId: this.gameId
     }
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
         ]
 
         this.displayService.setCarSubject(cars);
-        this.router.navigate(['game/race', {id : this.gameId}]);
+        this.router.navigate([`game/${race}`, {id : this.gameId}]);
       },
       error: (error) => {
         console.error(error);

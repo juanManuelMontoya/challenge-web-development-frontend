@@ -42,19 +42,4 @@ export class GameSocket{
     };
     return Rj.Subject.create(observer, observable);
   }
-
-  /*init(aggregateId : string) : void {
-    this.aggregateId = aggregateId;
-    
-    if (!this.connected) {
-      var aggregateId = this.aggregateId;
-      console.log("Val: " + aggregateId);
-      let socket = new WebSocket("ws://https://challenge-web-development.herokuapp.com/retrieve/" + aggregateId);
-
-      socket.onmessage = function(m) {
-          console.log("Got message: " + m.data);
-          //document.getElementById("result").append(m.data + "\n");
-      };
-    }
-  }*/
 }

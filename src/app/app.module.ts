@@ -15,11 +15,11 @@ import { CoreModule } from './modules/core/core.module';
 import { UsersModule } from './modules/users/users.module';
 import { DisplayService } from './modules/shared/services/display.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
