@@ -21,7 +21,7 @@ export class GameService {
 
   constructor(private http: HttpClient, private socket: GameSocket) {
     this.url = environment.game.url;
-    this.socket_url = `ws://${this.url.split('//')[1]}retrieve/`
+    this.socket_url = `wss://${this.url.split('//')[1]}retrieve/`
   }
 
   createGame(data: any): Observable<any> {
